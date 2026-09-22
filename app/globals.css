@@ -1,24 +1,186 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8f9fb;
-  --foreground: #0f172a;
+  --background: #f7f8fa;
+  --foreground: #171a21;
+  --ink: #171a21;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+  --soft-blue: #d9e4ff;
+  --blue: #5b7cfa;
+  --blue-surface: #eef3ff;
+  --ambient-x: 50%;
+  --ambient-y: 12%;
+  --ambient-opacity: 0.68;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-montserrat);
   --font-mono: var(--font-geist-mono);
+}
+
+* {
+  border-color: var(--line);
 }
 
 body {
   background-color: var(--background);
-  background-image: radial-gradient(rgb(100 116 139 / 0.11) 0.6px, transparent 0.6px);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
   background-attachment: fixed;
-  background-size: 28px 28px;
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  color: var(--ink);
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+.ambient-background {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    #f7f8fa 0%,
+    #f8fafc 48%,
+    #f7f8fa 100%
+  );
+  opacity: var(--ambient-opacity);
+}
+
+.ambient-background::before,
+.ambient-background::after {
+  position: absolute;
+  content: "";
+  pointer-events: none;
+  will-change: transform;
+}
+
+.ambient-background::before {
+  inset: -24%;
+  background:
+    radial-gradient(
+      ellipse 52rem 40rem at var(--ambient-x) var(--ambient-y),
+      rgb(217 228 255 / 0.86) 0%,
+      rgb(217 228 255 / 0.54) 34%,
+      rgb(238 243 255 / 0.28) 58%,
+      transparent 78%
+    ),
+    radial-gradient(
+      ellipse 44rem 34rem at 12% 78%,
+      rgb(238 243 255 / 0.72) 0%,
+      rgb(238 243 255 / 0.28) 48%,
+      transparent 76%
+    ),
+    radial-gradient(
+      ellipse 40rem 30rem at 88% 38%,
+      rgb(217 228 255 / 0.44) 0%,
+      transparent 74%
+    );
+  filter: blur(34px);
+  animation: ambient-drift 24s ease-in-out infinite alternate;
+}
+
+.ambient-background::after {
+  inset: -20%;
+  background:
+    radial-gradient(
+      ellipse 48rem 34rem at 86% 86%,
+      rgb(238 243 255 / 0.72) 0%,
+      rgb(217 228 255 / 0.24) 48%,
+      transparent 76%
+    ),
+    radial-gradient(
+      ellipse 34rem 28rem at 48% 22%,
+      rgb(91 124 250 / 0.1) 0%,
+      rgb(217 228 255 / 0.28) 34%,
+      transparent 74%
+    );
+  filter: blur(48px);
+  animation: ambient-drift-reverse 32s ease-in-out infinite alternate;
+}
+
+.ambient-orb-layer {
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ambient-orb {
+  position: absolute;
+  width: var(--orb-size);
+  height: var(--orb-size);
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+  transform: translate(-50%, -50%);
+  opacity: 0.62;
+  transition: filter 220ms ease, opacity 220ms ease, transform 220ms ease;
+  animation: orb-float 8s ease-in-out var(--orb-delay) infinite alternate;
+}
+
+.ambient-orb:hover {
+  filter: brightness(1.15);
+  opacity: 0.86;
+  transform: translate(-50%, -50%) scale(1.22);
+}
+
+.ambient-orb__core,
+.ambient-orb__ring {
+  position: absolute;
+  inset: 0;
+  display: block;
+  border-radius: inherit;
+}
+
+.ambient-orb__core {
+  background: radial-gradient(
+    circle at 35% 30%,
+    rgb(255 255 255 / 0.72) 0%,
+    rgb(217 228 255 / 0.7) 32%,
+    rgb(91 124 250 / 0.2) 68%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 12px rgb(217 228 255 / 0.78),
+    0 0 24px rgb(238 243 255 / 0.58);
+  filter: blur(1px);
+  transition: box-shadow 220ms ease, filter 220ms ease;
+}
+
+.ambient-orb:hover .ambient-orb__core {
+  box-shadow:
+    0 0 16px rgb(217 228 255 / 0.9),
+    0 0 30px rgb(238 243 255 / 0.72);
+  filter: blur(0);
+}
+
+.ambient-orb__ring {
+  opacity: 0;
+  transform: scale(0.45);
+}
+
+.ambient-orb--popping {
+  pointer-events: none;
+  animation: orb-pop 420ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.ambient-orb--popping .ambient-orb__core {
+  animation: orb-core-pop 360ms ease-out forwards;
+}
+
+.ambient-orb--popping .ambient-orb__ring {
+  border: 1px solid rgb(91 124 250 / 0.32);
+  animation: orb-ring-pop 460ms ease-out forwards;
+}
+
+.editorial {
+  font-family: var(--font-libre-baskerville), Georgia, serif;
 }
 
 @keyframes hero-enter {
@@ -33,15 +195,112 @@ body {
   }
 }
 
+@keyframes name-drift {
+  from {
+    transform: translateX(-2px);
+  }
+
+  to {
+    transform: translateX(2px);
+  }
+}
+
 @keyframes status-breathe {
   50% {
     box-shadow: 0 0 0 4px rgb(16 185 129 / 0.12);
   }
 }
 
+@keyframes ambient-drift {
+  from {
+    transform: translate3d(-1.5%, -1%, 0) scale(1);
+  }
+
+  to {
+    transform: translate3d(1.5%, 1%, 0) scale(1.04);
+  }
+}
+
+@keyframes ambient-drift-reverse {
+  from {
+    transform: translate3d(1%, 0.5%, 0) scale(1.02);
+  }
+
+  to {
+    transform: translate3d(-1%, -0.5%, 0) scale(1);
+  }
+}
+
+@keyframes orb-float {
+  from {
+    margin-top: -3px;
+    opacity: 0.7;
+  }
+
+  to {
+    margin-top: 3px;
+    opacity: 0.92;
+  }
+}
+
+@keyframes orb-pop {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  20% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.18);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.7);
+  }
+}
+
+@keyframes orb-core-pop {
+  0% {
+    filter: brightness(1);
+    opacity: 1;
+  }
+
+  18% {
+    filter: brightness(1.25);
+    opacity: 1;
+  }
+
+  100% {
+    filter: brightness(1.1);
+    opacity: 0;
+  }
+}
+
+@keyframes orb-ring-pop {
+  0% {
+    opacity: 0.8;
+    transform: scale(0.45);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(2.2);
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .hero-reveal {
     animation: hero-enter 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .name-drift {
+    display: inline-block;
+    animation: name-drift 7s ease-in-out 700ms infinite alternate;
+  }
+
+  .name-drift--cullen {
+    animation-delay: 1200ms;
   }
 
   .hero-reveal--1 {
@@ -69,7 +328,7 @@ body {
   }
 
   .interactive-lift {
-    transition: box-shadow 180ms ease, transform 180ms ease, border-color 180ms ease;
+    transition: box-shadow 180ms ease, transform 180ms ease, border-color 180ms ease, color 180ms ease, background-color 180ms ease;
   }
 
   .interactive-lift:not(.interactive-lift--disabled):hover {
@@ -81,12 +340,50 @@ body {
   }
 }
 
+@media (max-width: 700px), (prefers-reduced-motion: reduce) {
+  .ambient-background {
+    background:
+      radial-gradient(
+        ellipse 38rem 30rem at 50% 8%,
+        rgb(217 228 255 / 0.72) 0%,
+        rgb(238 243 255 / 0.42) 44%,
+        transparent 76%
+      ),
+      radial-gradient(
+        ellipse 34rem 28rem at 12% 78%,
+        rgb(238 243 255 / 0.52) 0%,
+        transparent 74%
+      ),
+      radial-gradient(
+        ellipse 36rem 28rem at 92% 88%,
+        rgb(217 228 255 / 0.36) 0%,
+        transparent 74%
+      ),
+      linear-gradient(160deg, #f7f8fa 0%, #f8fafc 100%);
+    opacity: 0.58;
+  }
+
+  .ambient-background::before,
+  .ambient-background::after {
+    display: none;
+  }
+
+  .ambient-orb-layer {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-reveal,
+  .name-drift,
   .interactive-lift,
   .status-indicator {
     animation: none;
     transition: none;
+  }
+
+  .ambient-background {
+    --ambient-opacity: 0.58;
   }
 
   .contribution-day:hover .contribution-day-fill,

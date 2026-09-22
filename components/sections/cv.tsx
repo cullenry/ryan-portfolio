@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useState, type ReactNode } from "react";
+import { AmbientBackground } from "@/components/ui/ambient-background";
 
 type TimelineItemProps = {
   children: ReactNode;
@@ -147,12 +149,6 @@ function SimplifiedCv() {
                 ryancullen172@gmail.com
               </a>
 
-              <a
-                href="tel:+353894067251"
-                className="block transition-colors hover:text-slate-950"
-              >
-                +353 89 406 7251
-              </a>
             </div>
           </div>
 
@@ -272,12 +268,6 @@ function FullCv() {
               ryancullen172@gmail.com
             </a>
 
-            <a
-              href="tel:+353894067251"
-              className="block transition-colors hover:text-slate-950"
-            >
-              +353 89 406 7251
-            </a>
           </div>
         </div>
 
@@ -303,15 +293,8 @@ function FullCv() {
 
               <div className="mt-4 space-y-3 text-sm leading-6 text-slate-600">
                 <a
-                  href="tel:+353894067251"
-                  className="block transition-colors hover:text-slate-950"
-                >
-                  +353 89 406 7251
-                </a>
-
-                <a
                   href="mailto:ryancullen172@gmail.com"
-                  className="block break-words transition-colors hover:text-slate-950"
+                  className="block min-w-0 max-w-full break-all text-[clamp(0.65rem,1.2vw,0.875rem)] leading-5 transition-colors hover:text-slate-950"
                 >
                   ryancullen172@gmail.com
                 </a>
@@ -599,27 +582,29 @@ export function Cv() {
   const [view, setView] = useState<"full" | "simple">("full");
 
   return (
-    <main className="min-h-screen bg-[#f8f9fb] text-slate-950">
+    <>
+      <AmbientBackground />
+      <main className="cv-shell min-h-screen bg-transparent text-[#171a21]">
       {/* Toolbar */}
-      <div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-8 print:hidden">
-        <a
+      <div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-8 print:hidden">
+        <Link
           href="/"
-          className="w-fit text-sm font-semibold tracking-[-0.02em] text-slate-950 transition-colors hover:text-slate-500"
+          className="w-fit text-sm font-semibold tracking-[-0.02em] text-[#171a21] transition-colors hover:text-[#5b7cfa]"
         >
           Ryan Cullen<span className="text-slate-400">.</span>
-        </a>
+        </Link>
 
         <div className="flex flex-wrap items-center gap-3">
           {/* View toggle */}
-          <div className="flex items-center gap-1 rounded-full border border-slate-200 bg-white p-1 shadow-sm">
+          <div className="flex items-center gap-1 border border-[#e5e7eb] bg-white p-1 shadow-sm">
             <button
               type="button"
               onClick={() => setView("full")}
               aria-pressed={view === "full"}
-              className={`rounded-full px-3.5 py-2 text-xs font-medium transition-all ${
+              className={`rounded-full px-3.5 py-2 text-xs font-medium transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#5b7cfa] ${
                 view === "full"
-                  ? "bg-slate-950 text-white shadow-sm"
-                  : "text-slate-600 hover:text-slate-950"
+                  ? "bg-[#171a21] text-white shadow-sm hover:bg-[#2b3038]"
+                  : "text-[#6b7280] hover:bg-[#eef3ff] hover:text-[#5b7cfa] hover:shadow-sm"
               }`}
             >
               Full CV
@@ -629,10 +614,10 @@ export function Cv() {
               type="button"
               onClick={() => setView("simple")}
               aria-pressed={view === "simple"}
-              className={`rounded-full px-3.5 py-2 text-xs font-medium transition-all ${
+              className={`rounded-full px-3.5 py-2 text-xs font-medium transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#5b7cfa] ${
                 view === "simple"
-                  ? "bg-slate-950 text-white shadow-sm"
-                  : "text-slate-600 hover:text-slate-950"
+                  ? "bg-[#171a21] text-white shadow-sm hover:bg-[#2b3038]"
+                  : "text-[#6b7280] hover:bg-[#eef3ff] hover:text-[#5b7cfa] hover:shadow-sm"
               }`}
             >
               Simplified CV
@@ -643,7 +628,7 @@ export function Cv() {
           <button
             type="button"
             onClick={() => window.print()}
-            className="rounded-full border border-slate-200 bg-white px-4 py-2.5 text-xs font-medium text-slate-700 shadow-sm transition-all hover:-translate-y-0.5 hover:border-slate-300 hover:text-slate-950 hover:shadow-md"
+            className="border border-[#e5e7eb] bg-white px-4 py-2.5 text-xs font-medium text-[#171a21] shadow-sm transition-all hover:-translate-y-0.5 hover:border-[#5b7cfa] hover:text-[#5b7cfa] hover:shadow-md"
           >
             Print / Save PDF
           </button>
@@ -690,6 +675,7 @@ export function Cv() {
           }
         }
       `}</style>
-    </main>
+      </main>
+    </>
   );
 }

@@ -16,16 +16,15 @@ export async function GithubActivity({ username }: GithubActivityProps) {
   return (
     <aside
       aria-labelledby="github-activity-heading"
-      className="w-full border border-slate-200 bg-white p-5 shadow-[0_20px_50px_-36px_rgba(15,23,42,0.45)] sm:p-6"
+      className="w-full border border-[#e5e7eb] bg-white/78 p-5 shadow-[0_24px_60px_-42px_rgba(23,26,33,0.42)] sm:p-7"
     >
-      <div className="flex items-start justify-between gap-4 border-b border-slate-100 pb-5">
+      <div className="flex items-start justify-between gap-4 border-b border-[#eef0f3] pb-5">
         <div>
-          <p className="text-xs font-semibold tracking-[0.14em] text-slate-500 uppercase">
-            Proof of Life
+          <p className="text-xs font-semibold tracking-[0.14em] text-[#6b7280] uppercase">
           </p>
 
           <h2
-            className="mt-2 text-lg font-semibold tracking-[-0.03em] text-slate-950"
+            className="mt-2 text-lg font-semibold tracking-[-0.03em] text-[#171a21]"
             id="github-activity-heading"
           >
             GitHub activity
@@ -33,7 +32,7 @@ export async function GithubActivity({ username }: GithubActivityProps) {
         </div>
 
         <a
-          className="inline-flex items-center gap-1 text-sm font-medium text-slate-700 underline decoration-slate-300 underline-offset-4 transition-colors hover:text-slate-950 hover:decoration-slate-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-slate-950"
+          className="inline-flex items-center gap-1 text-sm font-medium text-[#6b7280] underline decoration-[#d9e4ff] underline-offset-4 transition-colors hover:text-[#5b7cfa] hover:decoration-[#5b7cfa] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#5b7cfa]"
           href={`https://github.com/${username}`}
           rel="noreferrer"
           target="_blank"
@@ -60,7 +59,7 @@ export async function GithubActivity({ username }: GithubActivityProps) {
                       day.date,
                       day.contributionCount,
                     )}
-                    className="contribution-day group relative block size-full rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950"
+                    className="contribution-day group relative block size-full rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#5b7cfa]"
                     key={day.date}
                     role="img"
                     tabIndex={0}
@@ -77,7 +76,7 @@ export async function GithubActivity({ username }: GithubActivityProps) {
 
                     <span
                       aria-hidden="true"
-                      className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-2 w-max -translate-x-1/2 rounded border border-slate-200 bg-slate-950 px-2 py-1 text-[11px] font-medium text-white opacity-0 shadow-sm transition-opacity duration-150 group-hover:opacity-100 group-focus:opacity-100 motion-reduce:transition-none"
+                      className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-2 w-max -translate-x-1/2 rounded border border-[#e5e7eb] bg-[#171a21] px-2 py-1 text-[11px] font-medium text-white opacity-0 shadow-sm transition-opacity duration-150 group-hover:opacity-100 group-focus:opacity-100 motion-reduce:transition-none"
                     >
                       {contributionLabel(
                         day.date,
