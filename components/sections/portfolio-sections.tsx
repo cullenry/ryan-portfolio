@@ -129,7 +129,14 @@ export function PortfolioSections() {
             <h2 className="text-5xl font-semibold tracking-[-0.06em] text-[#171a21] sm:text-7xl">Let&apos;s talk.</h2>
             <p className="editorial mt-7 text-lg leading-8 text-[#6b7280]">Whether it&apos;s a project, an opportunity, or you just want to say hello, feel free to get in touch.</p>
             <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-4 text-sm font-medium">
-              <a className="text-[#171a21] underline decoration-[#d9e4ff] underline-offset-8 transition-colors hover:text-[#5b7cfa]" href="mailto:ryancullen172@gmail.com">cullenry@tcd.ie</a>
+              <a
+                className="text-[#171a21] underline decoration-[#d9e4ff] underline-offset-8 transition-colors hover:text-[#5b7cfa]"
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=cullenry%40tcd.ie"
+                rel="noreferrer"
+                target="_blank"
+              >
+                cullenry@tcd.ie
+              </a>
               <a className="text-[#6b7280] transition-colors hover:text-[#5b7cfa]" href={portfolio.links.github.href} rel="noreferrer" target="_blank">GitHub</a>
               <a className="text-[#6b7280] transition-colors hover:text-[#5b7cfa]" href={portfolio.links.linkedin.href} rel="noreferrer" target="_blank">LinkedIn</a>
             </div>

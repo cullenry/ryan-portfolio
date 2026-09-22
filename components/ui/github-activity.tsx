@@ -70,9 +70,19 @@ export async function GithubActivity({ username }: GithubActivityProps) {
                   >
                     <span
                       aria-hidden="true"
-                      className="contribution-day-fill block size-full rounded-[2px] transition-transform duration-150 ease-out group-hover:scale-125 group-focus:scale-125 motion-reduce:transition-none"
+                      className="contribution-day-fill block size-full rounded-[2px] transition-[filter] duration-150 ease-out group-hover:brightness-90 group-focus:brightness-90 motion-reduce:transition-none"
                       style={{ backgroundColor: day.color }}
                     />
+
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-2 w-max -translate-x-1/2 rounded border border-[#374151] bg-[#171a21] px-2 py-1 text-[11px] font-medium text-white opacity-0 shadow-md transition-opacity duration-150 group-hover:opacity-100 group-focus:opacity-100 motion-reduce:transition-none"
+                    >
+                      {day.contributionCount}{" "}
+                      {day.contributionCount === 1
+                        ? "contribution"
+                        : "contributions"}
+                    </span>
 
                   </span>
                 ))}

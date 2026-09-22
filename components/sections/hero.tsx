@@ -60,9 +60,6 @@ export function Hero() {
             <ProfileLink link={portfolio.links.linkedin} />
             <ProfileLink link={portfolio.links.cv} />
           </div>
-          <p className="hero-reveal hero-reveal--6 mt-5 text-xs leading-5 text-[#6b7280]">
-            Get in touch: <a className="font-medium text-[#171a21] underline decoration-[#d9e4ff] underline-offset-4 hover:text-[#5b7cfa]" href="mailto:cullenry@tcd.ie">cullenry@tcd.ie</a>
-          </p>
         </div>
         <div className="hero-reveal hero-reveal--4">
           <GithubActivity username="cullenry" />
