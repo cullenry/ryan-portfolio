@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8f9fb;
+  --foreground: #0f172a;
 }
 
 @theme inline {
@@ -12,15 +12,85 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+body {
+  background-color: var(--background);
+  background-image: radial-gradient(rgb(100 116 139 / 0.11) 0.6px, transparent 0.6px);
+  background-attachment: fixed;
+  background-size: 28px 28px;
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes status-breathe {
+  50% {
+    box-shadow: 0 0 0 4px rgb(16 185 129 / 0.12);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-reveal {
+    animation: hero-enter 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .hero-reveal--1 {
+    animation-delay: 40ms;
+  }
+
+  .hero-reveal--2 {
+    animation-delay: 100ms;
+  }
+
+  .hero-reveal--3 {
+    animation-delay: 160ms;
+  }
+
+  .hero-reveal--4 {
+    animation-delay: 220ms;
+  }
+
+  .hero-reveal--5 {
+    animation-delay: 280ms;
+  }
+
+  .hero-reveal--6 {
+    animation-delay: 340ms;
+  }
+
+  .interactive-lift {
+    transition: box-shadow 180ms ease, transform 180ms ease, border-color 180ms ease;
+  }
+
+  .interactive-lift:not(.interactive-lift--disabled):hover {
+    transform: translateY(-3px);
+  }
+
+  .status-indicator {
+    animation: status-breathe 2.8s ease-in-out infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-reveal,
+  .interactive-lift,
+  .status-indicator {
+    animation: none;
+    transition: none;
+  }
+
+  .contribution-day:hover .contribution-day-fill,
+  .contribution-day:focus .contribution-day-fill {
+    transform: none;
+  }
 }
