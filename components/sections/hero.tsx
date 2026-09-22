@@ -27,13 +27,27 @@ export function Hero() {
           <p className="hero-reveal hero-reveal--4 mt-6 max-w-xl text-sm font-medium leading-7 text-[#171a21] sm:text-base">
             Studying{" "}
             <a
-              className="underline decoration-[#b9c9f4] underline-offset-4 transition-colors hover:text-[#5b7cfa] hover:decoration-[#5b7cfa] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#5b7cfa]"
+              aria-label={`${portfolio.education.degree} course page (opens in a new tab)`}
+              className="group underline decoration-[#b9c9f4] underline-offset-4 transition-colors hover:text-[#5b7cfa] hover:decoration-[#5b7cfa] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#5b7cfa]"
               href={portfolio.education.courseUrl}
               rel="noreferrer"
               target="_blank"
             >
               {portfolio.education.degree}
-              <span className="sr-only"> course page (opens in a new tab)</span>
+              <svg
+                aria-hidden="true"
+                className="ml-1 inline-block size-3.5 align-[0.05em] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                fill="none"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M5 3h8v8M13 3 3 13"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="1.5"
+                />
+              </svg>
             </a>{" "}
             at {portfolio.education.institution}.
           </p>

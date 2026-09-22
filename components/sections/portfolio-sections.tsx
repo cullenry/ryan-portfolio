@@ -44,7 +44,7 @@ export function PortfolioSections() {
 
       <section className="scroll-mt-24 border-t border-[#e5e7eb]" id="projects">
         <div className="mx-auto max-w-6xl px-5 py-24 sm:px-8 lg:py-32">
-          <SectionIntro eyebrow="02 / Selected work" title="Things I've been exploring." />
+          <SectionIntro eyebrow="02 / Projects" title="Things I've been exploring." />
           <div className="grid gap-4 md:grid-cols-2">
             {portfolio.projects.map((project, index) => (
               <article

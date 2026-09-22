@@ -74,15 +74,6 @@ export async function GithubActivity({ username }: GithubActivityProps) {
                       style={{ backgroundColor: day.color }}
                     />
 
-                    <span
-                      aria-hidden="true"
-                      className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-2 w-max -translate-x-1/2 rounded border border-[#e5e7eb] bg-[#171a21] px-2 py-1 text-[11px] font-medium text-white opacity-0 shadow-sm transition-opacity duration-150 group-hover:opacity-100 group-focus:opacity-100 motion-reduce:transition-none"
-                    >
-                      {contributionLabel(
-                        day.date,
-                        day.contributionCount,
-                      )}
-                    </span>
                   </span>
                 ))}
             </div>
