@@ -7,11 +7,11 @@ type ProfileLinkProps = {
 
 export function ProfileLink({ link, variant = "secondary" }: ProfileLinkProps) {
   const sharedClassName =
-    "interactive-lift inline-flex min-h-11 items-center justify-center px-5 text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#5b7cfa]";
+    "profile-link interactive-lift inline-flex min-h-11 items-center justify-center px-5 text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#5b7cfa]";
   const variantClassName =
     variant === "primary"
-      ? "bg-[#171a21] text-white hover:bg-[#5b7cfa]"
-      : "border border-[#d1d5db] bg-white/75 text-[#171a21] hover:border-[#5b7cfa] hover:text-[#5b7cfa]";
+      ? "profile-link--primary bg-[#171a21] text-white hover:bg-[#5b7cfa]"
+      : "profile-link--secondary border border-[#d1d5db] bg-white/75 text-[#171a21] hover:border-[#5b7cfa] hover:text-[#5b7cfa]";
 
   if (!link.href) {
     return (

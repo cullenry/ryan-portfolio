@@ -66,9 +66,9 @@ export async function GithubActivity({ username }: GithubActivityProps) {
   return (
     <aside
       aria-labelledby="github-activity-heading"
-      className="w-full border border-[#e5e7eb] bg-white/78 p-5 shadow-[0_24px_60px_-42px_rgba(23,26,33,0.42)] sm:p-7"
+      className="github-activity w-full border border-[#e5e7eb] bg-white/78 p-5 shadow-[0_24px_60px_-42px_rgba(23,26,33,0.42)] sm:p-7"
     >
-      <div className="flex items-start justify-between gap-4 border-b border-[#eef0f3] pb-5">
+      <div className="github-activity__header flex items-start justify-between gap-4 border-b border-[#eef0f3] pb-5">
         <div>
           <p className="text-xs font-semibold tracking-[0.14em] text-[#6b7280] uppercase">
           </p>
@@ -82,7 +82,7 @@ export async function GithubActivity({ username }: GithubActivityProps) {
         </div>
 
         <a
-          className="inline-flex items-center gap-1 text-sm font-medium text-[#6b7280] underline decoration-[#d9e4ff] underline-offset-4 transition-colors hover:text-[#5b7cfa] hover:decoration-[#5b7cfa] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#5b7cfa]"
+          className="github-activity__link inline-flex items-center gap-1 text-sm font-medium text-[#6b7280] underline decoration-[#d9e4ff] underline-offset-4 transition-colors hover:text-[#5b7cfa] hover:decoration-[#5b7cfa] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#5b7cfa]"
           href={`https://github.com/${username}`}
           rel="noreferrer"
           target="_blank"
