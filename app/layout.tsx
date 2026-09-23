@@ -22,6 +22,9 @@ export const metadata: Metadata = {
   title: "Ryan Cullen | Computer Science & Business",
   description:
     "Portfolio of Ryan Cullen, a Computer Science & Business student at Trinity College Dublin.",
+  verification: {
+    google: "PixwOgN0g50RGNFqMnkZzznRkTzyYZMeVPdH5Tj3EMU",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
