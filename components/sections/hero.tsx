@@ -51,8 +51,11 @@ export function Hero() {
             </a>{" "}
             at {portfolio.education.institution}.
           </p>
-          <div className="hero-reveal hero-reveal--5 mt-8 inline-flex items-center gap-2 border border-[#d9e4ff] bg-[#eef3ff]/80 px-3 py-2 text-xs font-medium text-[#5b7cfa]">
-            <span aria-hidden="true" className="status-indicator size-1.5 rounded-full bg-[#5b7cfa]" />
+          <div className="hero-reveal hero-reveal--5 mt-8 inline-flex items-center gap-2 border border-[#d9f5e4] bg-[#eefaf3]/80 px-3 py-2 text-xs font-medium text-[#1f9d5a]">
+            <span
+              aria-hidden="true"
+              className="status-indicator size-1.5 rounded-full bg-[#22c55e] shadow-[0_0_0_3px_rgba(34,197,94,0.18)]"
+            />
             {portfolio.status}
           </div>
           <div className="hero-reveal hero-reveal--6 mt-10 flex flex-wrap gap-3" aria-label="Profile links">

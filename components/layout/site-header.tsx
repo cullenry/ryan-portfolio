@@ -1,4 +1,5 @@
 import { portfolio } from "@/data/portfolio";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export function SiteHeader() {
   return (
@@ -10,20 +11,23 @@ export function SiteHeader() {
         >
           Ryan Cullen<span className="text-slate-400">.</span>
         </a>
-        <nav aria-label="Primary navigation" className="max-w-full min-w-0 overflow-x-auto">
-          <ul className="flex w-max items-center gap-4 text-[11px] font-semibold tracking-[0.12em] text-[#6b7280] uppercase sm:gap-6">
-            {portfolio.navigation.map((item) => (
-              <li key={item.href}>
-                <a
-                  className="transition-colors hover:text-[#171a21] focus-visible:text-[#171a21] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#5b7cfa]"
-                  href={item.href}
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <div className="flex min-w-0 items-center gap-4">
+          <nav aria-label="Primary navigation" className="max-w-full min-w-0 overflow-x-auto">
+            <ul className="flex w-max items-center gap-4 text-[11px] font-semibold tracking-[0.12em] text-[#6b7280] uppercase sm:gap-6">
+              {portfolio.navigation.map((item) => (
+                <li key={item.href}>
+                  <a
+                    className="transition-colors hover:text-[#171a21] focus-visible:text-[#171a21] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#5b7cfa]"
+                    href={item.href}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   );

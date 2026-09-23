@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, type ReactNode } from "react";
 import { AmbientBackground } from "@/components/ui/ambient-background";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 type TimelineItemProps = {
   children: ReactNode;
@@ -140,13 +141,13 @@ function SimplifiedCv() {
             </div>
 
             <div className="space-y-1 text-left text-sm text-slate-500 sm:text-right">
-              <p>Lucan, Co. Dublin</p>
+              <p>Dublin, Ireland</p>
 
               <a
-                href="mailto:ryancullen172@gmail.com"
+                href="mailto:cullenry@tcd.ie"
                 className="block transition-colors hover:text-slate-950"
               >
-                ryancullen172@gmail.com
+                cullenry@tcd.ie
               </a>
 
             </div>
@@ -167,7 +168,7 @@ function SimplifiedCv() {
             <div className="space-y-6">
               <SimpleEntry
                 title="SuperValu"
-                subtitle="Pick and Pack"
+                subtitle="Retail Assistant"
                 date="May 2026 – Present"
               />
 
@@ -179,7 +180,7 @@ function SimplifiedCv() {
 
               <SimpleEntry
                 title="Dunnes Stores"
-                subtitle="Floor Staff | TY Work Experience"
+                subtitle="Retail Assistant | TY Work Experience"
               />
 
               <SimpleEntry
@@ -259,13 +260,13 @@ function FullCv() {
           </div>
 
           <div className="space-y-2 text-left text-sm text-slate-600 sm:text-right">
-            <p>Lucan, Co. Dublin</p>
+            <p>Dublin, Ireland</p>
 
             <a
-              href="mailto:ryancullen172@gmail.com"
+              href="mailto:cullenry@tcd.ie"
               className="block transition-colors hover:text-slate-950"
             >
-              ryancullen172@gmail.com
+              cullenry@tcd.ie
             </a>
 
           </div>
@@ -293,13 +294,13 @@ function FullCv() {
 
               <div className="mt-4 space-y-3 text-sm leading-6 text-slate-600">
                 <a
-                  href="mailto:ryancullen172@gmail.com"
+                  href="mailto:cullenry@tcd.ie"
                   className="block min-w-0 max-w-full break-all text-[clamp(0.65rem,1.2vw,0.875rem)] leading-5 transition-colors hover:text-slate-950"
                 >
-                  ryancullen172@gmail.com
+                  cullenry@tcd.ie
                 </a>
 
-                <p>Lucan, Co. Dublin</p>
+                <p>Dublin, Ireland</p>
               </div>
             </section>
 
@@ -378,7 +379,7 @@ function FullCv() {
                     </h3>
 
                     <p className="mt-1 text-sm font-medium uppercase tracking-wide text-slate-500">
-                      Pick and Pack
+                      Retail Assistant
                     </p>
                   </div>
 
@@ -389,18 +390,18 @@ function FullCv() {
 
                 <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-6 text-slate-600 marker:text-slate-400">
                   <li>
-                    Online order picking and packing while maintaining
-                    accuracy and efficiency.
+                    Supporting customers in a fast-paced retail environment while
+                    maintaining a helpful and professional service.
                   </li>
 
                   <li>
-                    Working effectively with colleagues in a fast-paced retail
-                    environment.
+                    Working effectively with colleagues to keep store operations
+                    running smoothly and efficiently.
                   </li>
 
                   <li>
-                    Supporting customers and maintaining high standards of
-                    organisation and service.
+                    Maintaining organisation and attention to detail while
+                    supporting day-to-day retail tasks.
                   </li>
                 </ul>
               </TimelineItem>
@@ -448,7 +449,7 @@ function FullCv() {
                   </h3>
 
                   <p className="mt-1 text-sm font-medium uppercase tracking-wide text-slate-500">
-                    Floor Staff | TY Work Experience
+                    Retail Assistant | TY Work Experience
                   </p>
                 </div>
 
@@ -486,9 +487,6 @@ function FullCv() {
                     under pressure.
                   </li>
 
-                  <li>
-                    Reference: Damian Long (083-107-5823) – Manager.
-                  </li>
                 </ul>
               </TimelineItem>
 
@@ -511,9 +509,6 @@ function FullCv() {
                     refuelling and testing functionality.
                   </li>
 
-                  <li>
-                    Reference: Colm Brennan (086-388-9819).
-                  </li>
                 </ul>
               </TimelineItem>
             </div>
@@ -535,7 +530,7 @@ function FullCv() {
                     </p>
 
                     <p className="mt-2 text-sm text-slate-500">
-                      College Green, Dublin 2
+                      Dublin, Ireland
                     </p>
                   </div>
 
@@ -561,7 +556,7 @@ function FullCv() {
                     </p>
 
                     <p className="mt-2 text-sm text-slate-500">
-                      79–85 Lower Leeson Street, Dublin 2
+                      Dublin, Ireland
                     </p>
                   </div>
 
@@ -632,6 +627,7 @@ export function Cv() {
           >
             Print / Save PDF
           </button>
+          <ThemeToggle />
         </div>
       </div>
 

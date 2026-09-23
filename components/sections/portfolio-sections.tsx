@@ -17,7 +17,7 @@ export function PortfolioSections() {
   return (
     <div className="border-t border-[#e5e7eb]">
       <section className="mx-auto max-w-6xl scroll-mt-24 px-5 py-24 sm:px-8 lg:py-32" id="about">
-        <SectionIntro eyebrow="01 / About" title="A little about me." />
+        <SectionIntro eyebrow="01 / About" title="A little about me" />
         <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.8fr)] lg:gap-24">
           <p className="max-w-2xl text-lg leading-9 text-[#6b7280]">{portfolio.about}</p>
           <div id="skills">
@@ -44,7 +44,7 @@ export function PortfolioSections() {
 
       <section className="scroll-mt-24 border-t border-[#e5e7eb]" id="projects">
         <div className="mx-auto max-w-6xl px-5 py-24 sm:px-8 lg:py-32">
-          <SectionIntro eyebrow="02 / Projects" title="Things I've been exploring." />
+          <SectionIntro eyebrow="02 / Projects" title="Things I've been exploring" />
           <div className="grid gap-4 md:grid-cols-2">
             {portfolio.projects.map((project, index) => (
               <article
@@ -96,7 +96,7 @@ export function PortfolioSections() {
       </section>
 
       <section className="mx-auto max-w-6xl scroll-mt-24 px-5 py-24 sm:px-8 lg:py-32" id="experience">
-        <SectionIntro eyebrow="03 / Experience" title="Learning through doing." />
+        <SectionIntro eyebrow="03 / Experience" title="Learning on the Job" />
         <div className="border-t border-[#e5e7eb]">
           {portfolio.experience.map((item) => (
             <div className="grid gap-2 border-b border-[#e5e7eb] py-5 sm:grid-cols-[1fr_auto] sm:items-baseline sm:gap-8" key={`${item.company}-${item.role}`}>
@@ -109,7 +109,7 @@ export function PortfolioSections() {
 
       <section className="scroll-mt-24 border-t border-[#e5e7eb]" id="education">
         <div className="mx-auto max-w-6xl px-5 py-24 sm:px-8 lg:py-32">
-          <SectionIntro eyebrow="04 / Education" title="What I'm studying." />
+          <SectionIntro eyebrow="04 / Education" title="What I'm studying" />
           <div className="grid gap-8 md:grid-cols-2">
             {portfolio.educationHistory.map((item) => (
               <article className="border-t-2 border-[#d9e4ff] pt-5" key={item.institution}>

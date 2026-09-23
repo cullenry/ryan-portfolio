@@ -97,13 +97,13 @@ export const portfolio = {
     },
   ] satisfies Project[],
   experience: [
-    { company: "SuperValu", role: "Pick & Pack", date: "May 2026 – Present" },
+    { company: "SuperValu", role: "Retail Assistant", date: "May 2026 – Present" },
     {
       company: "Brown Thomas Dublin",
       role: "Online Pick & Pack",
       date: "October 2025 – December 2025",
     },
-    { company: "Dunnes Stores", role: "Floor Staff · TY Work Experience" },
+    { company: "Dunnes Stores", role: "Retail Assistant · TY Work Experience" },
     {
       company: "Saint Helens Bay Golf Resort",
       role: "Kitchen Porter",
