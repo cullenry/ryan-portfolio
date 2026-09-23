@@ -26,10 +26,18 @@ export type Experience = {
   company: string;
   role: string;
   date?: string;
+  note?: string;
+};
+
+export type Interest = {
+  label: string;
+  icon: "code" | "markets" | "football" | "reading" | "piano";
 };
 
 export const portfolio = {
   name: "Ryan Cullen",
+  email: "cullenry@tcd.ie",
+  location: "Dublin, Ireland",
   introduction:
     "Interested in technology, software development, and how practical problems can be solved with good systems.",
   education: {
@@ -41,19 +49,29 @@ export const portfolio = {
   status: "Currently building this website :)",
   navigation: [
     { label: "About", href: "#about" },
-    { label: "Projects", href: "#projects" },
-    { label: "Experience", href: "#experience" },
-    { label: "Education", href: "#education" },
-    { label: "Contact", href: "#contact" },
+    { label: "CV", href: "/cv" },
   ] satisfies NavigationItem[],
   about:
     "Hi! I'm Ryan, a second-year Computer Science & Business student at Trinity College Dublin. I'm interested in how technology and business play hand in hand. Right now, I'm focusing my self-study on system architecture, data structures, and learning what it takes to build highly efficient, real-time algorithms for the markets.",
+  aboutHighlights: [
+    "technology and business play hand in hand",
+    "system architecture, data structures",
+    "real-time algorithms for the markets",
+  ],
   currently: [
     { label: "Based", value: "Dublin, Ireland" },
     { label: "Studying", value: "Computer Science & Business" },
     { label: "At", value: "Trinity College Dublin" },
     { label: "Building", value: "Personal projects" },
   ],
+  interests: [
+    { label: "Code", icon: "code" },
+    { label: "Markets", icon: "markets" },
+    { label: "Football", icon: "football" },
+    { label: "Reading", icon: "reading" },
+    { label: "Piano", icon: "piano" },
+  ] satisfies Interest[],
+  hobbies: ["Football", "Reading", "Playing Piano"],
   projects: [
     {
       name: "Netflix Data Visualisation (Leaving Cert Project)",
@@ -103,7 +121,7 @@ export const portfolio = {
       role: "Online Pick & Pack",
       date: "October 2025 – December 2025",
     },
-    { company: "Dunnes Stores", role: "Retail Assistant · TY Work Experience" },
+    { company: "Dunnes Stores", role: "Retail Assistant", note: "TY Work Experience" },
     {
       company: "Saint Helens Bay Golf Resort",
       role: "Kitchen Porter",
@@ -111,7 +129,8 @@ export const portfolio = {
     },
     {
       company: "Vertical.ie",
-      role: "Sales & Service Company · TY Work Experience",
+      role: "Sales & Service Company",
+      note: "TY Work Experience",
     },
   ] satisfies Experience[],
   skills: {
@@ -142,6 +161,7 @@ export const portfolio = {
       course: "Business & Computer Science",
       date: "2025 – Present",
       detail: "Second year · Expected graduation: 2029",
+      progress: { year: 2, of: 4 },
     },
     {
       institution: "Institute of Education",
@@ -156,13 +176,19 @@ export const portfolio = {
       href: "https://github.com/cullenry",
       external: true,
     },
-    linkedin: { 
+    linkedin: {
       label: "LinkedIn",
       href: "https://www.linkedin.com/in/ryan-cullen-121623312/",
-      external: true },
-    cv: { 
+      external: true,
+    },
+    cv: {
       label: "View CV",
-       href: "/cv", 
-    }, 
+      href: "/cv",
+    },
+    email: {
+      label: "Email",
+      href: "https://mail.google.com/mail/?view=cm&fs=1&to=cullenry%40tcd.ie",
+      external: true,
+    },
   } satisfies Record<string, ProfileLink>,
 };

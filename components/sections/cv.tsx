@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useState, type ReactNode } from "react";
-import { AmbientBackground } from "@/components/ui/ambient-background";
+import { Fragment, useState, type ReactNode } from "react";
+import { DoorMark } from "@/components/ui/icons";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 type TimelineItemProps = {
   children: ReactNode;
+  color: string;
   last?: boolean;
 };
 
@@ -18,22 +19,24 @@ type SimpleEntryProps = {
 
 type CvSectionProps = {
   title: string;
+  color?: string;
   children: ReactNode;
 };
 
-function TimelineItem({ children, last = false }: TimelineItemProps) {
+function TimelineItem({ children, color, last = false }: TimelineItemProps) {
   return (
     <div className="relative pl-8">
       {!last && (
         <div
           aria-hidden="true"
-          className="absolute left-[7px] top-3 h-full w-px bg-slate-200"
+          className="absolute top-3 left-[7px] h-full w-px bg-line-strong"
         />
       )}
 
       <div
         aria-hidden="true"
-        className="absolute left-0 top-2 size-4 rounded-full border-4 border-white bg-slate-300 shadow-[0_0_0_1px_rgba(203,213,225,0.8)]"
+        className="absolute top-1.5 left-0 size-4 rounded-full border-[3px] border-card print:border-white"
+        style={{ backgroundColor: color }}
       />
 
       {children}
@@ -41,15 +44,20 @@ function TimelineItem({ children, last = false }: TimelineItemProps) {
   );
 }
 
-function CvSection({ title, children }: CvSectionProps) {
+function CvSection({ title, color = "var(--tomato)", children }: CvSectionProps) {
   return (
     <section className="break-inside-avoid">
-      <div className="flex items-center gap-4">
-        <h2 className="text-xs font-semibold tracking-[0.18em] text-slate-500 uppercase">
+      <div className="flex items-center gap-3">
+        <span
+          aria-hidden="true"
+          className="h-3 w-2.5 rounded-t-full"
+          style={{ backgroundColor: color }}
+        />
+        <h2 className="text-xs font-bold tracking-[0.18em] text-ink-soft uppercase">
           {title}
         </h2>
 
-        <div className="h-px flex-1 bg-slate-200" />
+        <div className="h-px flex-1 bg-line" />
       </div>
 
       <div className="mt-7">{children}</div>
@@ -63,29 +71,27 @@ function SimpleEntry({
   date,
 }: SimpleEntryProps) {
   return (
-    <div className="flex flex-col gap-1 border-b border-slate-100 pb-5 last:border-0 last:pb-0 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+    <div className="flex flex-col gap-1 border-b border-line pb-5 last:border-0 last:pb-0 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
       <div>
-        <h3 className="font-semibold text-slate-950">
+        <h3 className="font-serif text-lg font-semibold text-ink">
           {title}
         </h3>
 
         {subtitle && (
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-1 text-sm text-ink-soft">
             {subtitle}
           </p>
         )}
       </div>
 
       {date && (
-        <p className="shrink-0 text-sm text-slate-500">
+        <p className="shrink-0 text-sm text-ink-soft">
           {date}
         </p>
       )}
     </div>
   );
 }
-
-import { Fragment } from 'react'; // 1. Add this import at the top of your file
 
 function SimpleSkills() {
   const skills = [
@@ -101,14 +107,13 @@ function SimpleSkills() {
   ];
 
   return (
-    <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-slate-600">
+    <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-ink-soft">
       {skills.map((skill) => (
-        /* 2. Replace the empty <> with <Fragment key={skill}> */
         <Fragment key={skill}>
           {/* Force a new line by inserting a full-width element right before Digital Literacy */}
           {skill === "Digital Literacy" && <div className="h-0 w-full" />}
-          
-          <span className="before:mr-2 before:text-slate-300 before:content-['•']">
+
+          <span className="before:mr-2 before:text-tomato before:content-['•']">
             {skill}
           </span>
         </Fragment>
@@ -117,35 +122,44 @@ function SimpleSkills() {
   );
 }
 
+const cvCardClassName =
+  "overflow-hidden rounded-[1.75rem] border border-line bg-card shadow-[0_30px_80px_-55px_rgba(31,27,45,0.45)] print:rounded-none print:border-0 print:shadow-none";
 
+function CvName() {
+  return (
+    <>
+      <h1 className="display mt-3 text-5xl font-semibold text-ink sm:text-6xl">
+        Ryan Cullen<span className="text-tomato">.</span>
+      </h1>
+
+      <p className="mt-3 text-sm font-semibold tracking-wide text-ink-soft">
+        COMPUTER SCIENCE &amp; BUSINESS STUDENT
+      </p>
+    </>
+  );
+}
 
 function SimplifiedCv() {
   return (
-    <article className="overflow-hidden border border-slate-200 bg-white shadow-[0_30px_80px_-55px_rgba(15,23,42,0.45)] print:border-0 print:shadow-none">
+    <article className={cvCardClassName}>
       <div className="px-6 py-10 sm:px-10 sm:py-12 lg:px-14 lg:py-14">
         {/* Header */}
         <header>
-          <p className="text-xs font-semibold tracking-[0.18em] text-slate-500 uppercase">
+          <p className="text-xs font-bold tracking-[0.18em] text-tomato-ink uppercase">
             Curriculum Vitae
           </p>
 
-          <div className="mt-3 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <h1 className="text-5xl font-semibold tracking-[-0.065em] text-slate-950 sm:text-6xl">
-                Ryan Cullen
-              </h1>
-
-              <p className="mt-3 text-sm font-medium tracking-wide text-slate-500">
-                COMPUTER SCIENCE &amp; BUSINESS STUDENT
-              </p>
+              <CvName />
             </div>
 
-            <div className="space-y-1 text-left text-sm text-slate-500 sm:text-right">
+            <div className="space-y-1 text-left text-sm text-ink-soft sm:text-right">
               <p>Dublin, Ireland</p>
 
               <a
                 href="mailto:cullenry@tcd.ie"
-                className="block transition-colors hover:text-slate-950"
+                className="block transition-colors hover:text-tomato-ink"
               >
                 cullenry@tcd.ie
               </a>
@@ -153,9 +167,9 @@ function SimplifiedCv() {
             </div>
           </div>
 
-          <div className="mt-8 h-px bg-slate-200" />
+          <div className="mt-8 h-px bg-line" />
 
-          <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-xs text-slate-500">
+          <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-xs text-ink-soft">
             <span>Business &amp; Computer Science</span>
             <span>Trinity College Dublin</span>
             <span>Dublin, Ireland</span>
@@ -164,7 +178,7 @@ function SimplifiedCv() {
 
         {/* Content */}
         <div className="mt-12 space-y-12">
-          <CvSection title="Work Experience">
+          <CvSection title="Work Experience" color="var(--tomato)">
             <div className="space-y-6">
               <SimpleEntry
                 title="SuperValu"
@@ -196,7 +210,7 @@ function SimplifiedCv() {
             </div>
           </CvSection>
 
-          <CvSection title="Education">
+          <CvSection title="Education" color="var(--cobalt)">
             <div className="space-y-6">
               <SimpleEntry
                 title="Trinity College Dublin"
@@ -212,12 +226,12 @@ function SimplifiedCv() {
             </div>
           </CvSection>
 
-          <CvSection title="Skills">
+          <CvSection title="Skills" color="var(--clover)">
             <SimpleSkills />
           </CvSection>
 
-          <CvSection title="Languages">
-            <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-slate-600">
+          <CvSection title="Languages" color="var(--marigold)">
+            <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-ink-soft">
               <span>• English</span>
               <span>• Irish</span>
               <span>• Java</span>
@@ -226,8 +240,8 @@ function SimplifiedCv() {
             </div>
           </CvSection>
 
-          <CvSection title="Hobbies">
-            <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-slate-600">
+          <CvSection title="Hobbies" color="var(--plum)">
+            <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-ink-soft">
               <span>• Football</span>
               <span>• Reading</span>
               <span>• Playing Piano</span>
@@ -241,30 +255,24 @@ function SimplifiedCv() {
 
 function FullCv() {
   return (
-    <article className="overflow-hidden border border-slate-200 bg-white shadow-[0_30px_80px_-55px_rgba(15,23,42,0.45)] print:border-0 print:shadow-none">
+    <article className={cvCardClassName}>
       {/* Header */}
-      <header className="border-b border-slate-200 px-6 py-10 sm:px-10 sm:py-12 lg:px-14">
+      <header className="border-b border-line px-6 py-10 sm:px-10 sm:py-12 lg:px-14">
         <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-xs font-semibold tracking-[0.18em] text-slate-500 uppercase">
+            <p className="text-xs font-bold tracking-[0.18em] text-tomato-ink uppercase">
               Curriculum Vitae
             </p>
 
-            <h1 className="mt-3 text-5xl font-semibold tracking-[-0.065em] text-slate-950 sm:text-6xl">
-              Ryan Cullen
-            </h1>
-
-            <p className="mt-3 text-sm font-medium tracking-wide text-slate-500">
-              COMPUTER SCIENCE &amp; BUSINESS STUDENT
-            </p>
+            <CvName />
           </div>
 
-          <div className="space-y-2 text-left text-sm text-slate-600 sm:text-right">
+          <div className="space-y-2 text-left text-sm text-ink-soft sm:text-right">
             <p>Dublin, Ireland</p>
 
             <a
               href="mailto:cullenry@tcd.ie"
-              className="block transition-colors hover:text-slate-950"
+              className="block transition-colors hover:text-tomato-ink"
             >
               cullenry@tcd.ie
             </a>
@@ -272,9 +280,9 @@ function FullCv() {
           </div>
         </div>
 
-        <div className="mt-8 h-px bg-slate-200" />
+        <div className="mt-8 h-px bg-line" />
 
-        <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-xs text-slate-500">
+        <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-xs text-ink-soft">
           <span>Business &amp; Computer Science</span>
           <span>Trinity College Dublin</span>
           <span>Dublin, Ireland</span>
@@ -284,18 +292,18 @@ function FullCv() {
       {/* Main CV grid */}
       <div className="grid lg:grid-cols-[240px_minmax(0,1fr)]">
         {/* Sidebar */}
-        <aside className="border-b border-slate-200 bg-[#f8f9fb] px-6 py-10 sm:px-10 lg:border-b-0 lg:border-r lg:px-8">
+        <aside className="border-b border-line bg-paper-deep/50 px-6 py-10 sm:px-10 lg:border-r lg:border-b-0 lg:px-8">
           <div className="space-y-10">
             {/* Contact */}
             <section className="break-inside-avoid">
-              <h2 className="text-xs font-semibold tracking-[0.18em] text-slate-500 uppercase">
+              <h2 className="text-xs font-bold tracking-[0.18em] text-tomato-ink uppercase">
                 Contact
               </h2>
 
-              <div className="mt-4 space-y-3 text-sm leading-6 text-slate-600">
+              <div className="mt-4 space-y-3 text-sm leading-6 text-ink-soft">
                 <a
                   href="mailto:cullenry@tcd.ie"
-                  className="block min-w-0 max-w-full break-all text-[clamp(0.65rem,1.2vw,0.875rem)] leading-5 transition-colors hover:text-slate-950"
+                  className="block max-w-full min-w-0 text-[clamp(0.65rem,1.2vw,0.875rem)] leading-5 break-all transition-colors hover:text-tomato-ink"
                 >
                   cullenry@tcd.ie
                 </a>
@@ -306,11 +314,11 @@ function FullCv() {
 
             {/* Skills */}
             <section className="break-inside-avoid">
-              <h2 className="text-xs font-semibold tracking-[0.18em] text-slate-500 uppercase">
+              <h2 className="text-xs font-bold tracking-[0.18em] text-clover uppercase dark:text-marigold">
                 Skills
               </h2>
 
-              <ul className="mt-4 list-disc space-y-2.5 pl-5 text-sm text-slate-600 marker:text-slate-400">
+              <ul className="mt-4 list-disc space-y-2.5 pl-5 text-sm text-ink-soft marker:text-clover">
                 <li>Problem Solving</li>
                 <li>Creative Thinking</li>
                 <li>Teamwork</li>
@@ -325,11 +333,11 @@ function FullCv() {
 
             {/* Languages */}
             <section className="break-inside-avoid">
-              <h2 className="text-xs font-semibold tracking-[0.18em] text-slate-500 uppercase">
+              <h2 className="text-xs font-bold tracking-[0.18em] text-cobalt uppercase dark:text-sea">
                 Languages
               </h2>
 
-              <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-slate-600 marker:text-slate-400">
+              <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-ink-soft marker:text-cobalt">
                 <li>English</li>
                 <li>Irish</li>
                 <li>Java</li>
@@ -340,11 +348,11 @@ function FullCv() {
 
             {/* Hobbies */}
             <section className="break-inside-avoid">
-              <h2 className="text-xs font-semibold tracking-[0.18em] text-slate-500 uppercase">
+              <h2 className="text-xs font-bold tracking-[0.18em] text-plum uppercase dark:text-blush">
                 Hobbies
               </h2>
 
-              <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-slate-600 marker:text-slate-400">
+              <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-ink-soft marker:text-plum">
                 <li>Football</li>
                 <li>Reading</li>
                 <li>Playing Piano</li>
@@ -356,8 +364,8 @@ function FullCv() {
         {/* Main content */}
         <div className="space-y-12 px-6 py-10 sm:px-10 sm:py-12 lg:px-12 lg:py-14">
           {/* Profile */}
-          <CvSection title="Profile">
-            <p className="max-w-3xl text-base leading-8 text-slate-600">
+          <CvSection title="Profile" color="var(--marigold)">
+            <p className="max-w-3xl font-serif text-[1.05rem] leading-8 text-ink">
               I am a second-year undergraduate student at Trinity College
               Dublin studying Computer Science and Business. I am a confident,
               adaptable, and motivated individual with strong analytical and
@@ -368,27 +376,27 @@ function FullCv() {
           </CvSection>
 
           {/* Work Experience */}
-          <CvSection title="Work Experience">
+          <CvSection title="Work Experience" color="var(--tomato)">
             <div className="space-y-8">
               {/* SuperValu */}
-              <TimelineItem>
+              <TimelineItem color="var(--tomato)">
                 <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
                   <div>
-                    <h3 className="font-semibold text-slate-950">
+                    <h3 className="font-serif text-lg font-semibold text-ink">
                       SuperValu
                     </h3>
 
-                    <p className="mt-1 text-sm font-medium uppercase tracking-wide text-slate-500">
+                    <p className="mt-1 text-sm font-semibold tracking-wide text-ink-soft uppercase">
                       Retail Assistant
                     </p>
                   </div>
 
-                  <p className="shrink-0 text-sm text-slate-500">
+                  <p className="shrink-0 text-sm text-ink-soft">
                     May 2026 – Present
                   </p>
                 </div>
 
-                <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-6 text-slate-600 marker:text-slate-400">
+                <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-6 text-ink-soft marker:text-tomato">
                   <li>
                     Supporting customers in a fast-paced retail environment while
                     maintaining a helpful and professional service.
@@ -407,24 +415,24 @@ function FullCv() {
               </TimelineItem>
 
               {/* Brown Thomas */}
-              <TimelineItem>
+              <TimelineItem color="var(--marigold)">
                 <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
                   <div>
-                    <h3 className="font-semibold text-slate-950">
+                    <h3 className="font-serif text-lg font-semibold text-ink">
                       Brown Thomas Dublin
                     </h3>
 
-                    <p className="mt-1 text-sm font-medium uppercase tracking-wide text-slate-500">
+                    <p className="mt-1 text-sm font-semibold tracking-wide text-ink-soft uppercase">
                       Online Pick and Pack
                     </p>
                   </div>
 
-                  <p className="shrink-0 text-sm text-slate-500">
+                  <p className="shrink-0 text-sm text-ink-soft">
                     October 2025 – December 2025
                   </p>
                 </div>
 
-                <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-6 text-slate-600 marker:text-slate-400">
+                <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-6 text-ink-soft marker:text-marigold">
                   <li>
                     Online order picking and packing for dispatch.
                   </li>
@@ -442,42 +450,42 @@ function FullCv() {
               </TimelineItem>
 
               {/* Dunnes */}
-              <TimelineItem>
+              <TimelineItem color="var(--cobalt)">
                 <div>
-                  <h3 className="font-semibold text-slate-950">
+                  <h3 className="font-serif text-lg font-semibold text-ink">
                     Dunnes Stores
                   </h3>
 
-                  <p className="mt-1 text-sm font-medium uppercase tracking-wide text-slate-500">
+                  <p className="mt-1 text-sm font-semibold tracking-wide text-ink-soft uppercase">
                     Retail Assistant | TY Work Experience
                   </p>
                 </div>
 
-                <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-6 text-slate-600 marker:text-slate-400">
+                <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-6 text-ink-soft marker:text-cobalt">
                   <li>Stocking shelves and receiving deliveries.</li>
                   <li>Helping customers with their enquiries.</li>
                 </ul>
               </TimelineItem>
 
               {/* Saint Helens */}
-              <TimelineItem>
+              <TimelineItem color="var(--clover)">
                 <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
                   <div>
-                    <h3 className="font-semibold text-slate-950">
+                    <h3 className="font-serif text-lg font-semibold text-ink">
                       Saint Helens Bay Golf Resort
                     </h3>
 
-                    <p className="mt-1 text-sm font-medium uppercase tracking-wide text-slate-500">
+                    <p className="mt-1 text-sm font-semibold tracking-wide text-ink-soft uppercase">
                       Kitchen Porter
                     </p>
                   </div>
 
-                  <p className="shrink-0 text-sm text-slate-500">
+                  <p className="shrink-0 text-sm text-ink-soft">
                     June 2022 – August 2022
                   </p>
                 </div>
 
-                <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-6 text-slate-600 marker:text-slate-400">
+                <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-6 text-ink-soft marker:text-clover">
                   <li>Food preparation and kitchen support.</li>
 
                   <li>Managed inventory levels.</li>
@@ -491,19 +499,19 @@ function FullCv() {
               </TimelineItem>
 
               {/* Vertical.ie */}
-              <TimelineItem last>
+              <TimelineItem color="var(--plum)" last>
                 <div>
-                  <h3 className="font-semibold text-slate-950">
+                  <h3 className="font-serif text-lg font-semibold text-ink">
                     Vertical.ie – The Access Platform Hire, Sales &amp; Service
                     Company
                   </h3>
 
-                  <p className="mt-1 text-sm font-medium uppercase tracking-wide text-slate-500">
+                  <p className="mt-1 text-sm font-semibold tracking-wide text-ink-soft uppercase">
                     Managed Construction Vehicles | TY Work Experience
                   </p>
                 </div>
 
-                <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-6 text-slate-600 marker:text-slate-400">
+                <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-6 text-ink-soft marker:text-plum">
                   <li>
                     Managed construction vehicles, including painting,
                     refuelling and testing functionality.
@@ -515,52 +523,52 @@ function FullCv() {
           </CvSection>
 
           {/* Education */}
-          <CvSection title="Education">
+          <CvSection title="Education" color="var(--cobalt)">
             <div className="space-y-8">
-              <TimelineItem>
+              <TimelineItem color="var(--cobalt)">
                 <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
                   <div>
-                    <h3 className="font-semibold text-slate-950">
+                    <h3 className="font-serif text-lg font-semibold text-ink">
                       Trinity College Dublin
                     </h3>
 
-                    <p className="mt-1 text-sm font-medium text-slate-500">
+                    <p className="mt-1 text-sm font-medium text-ink-soft">
                       Bachelor of Science (Joint Honours), Business and
                       Computer Science
                     </p>
 
-                    <p className="mt-2 text-sm text-slate-500">
+                    <p className="mt-2 text-sm text-ink-soft">
                       Dublin, Ireland
                     </p>
                   </div>
 
-                  <p className="shrink-0 text-sm text-slate-500">
+                  <p className="shrink-0 text-sm text-ink-soft">
                     2025 – Present
                   </p>
                 </div>
 
-                <p className="mt-3 text-xs font-medium tracking-wide text-slate-400 uppercase">
+                <p className="mt-3 text-xs font-semibold tracking-wide text-ink-soft uppercase">
                   Second year · Expected graduation: 2029
                 </p>
               </TimelineItem>
 
-              <TimelineItem last>
+              <TimelineItem color="var(--blush)" last>
                 <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
                   <div>
-                    <h3 className="font-semibold text-slate-950">
+                    <h3 className="font-serif text-lg font-semibold text-ink">
                       Institute Of Education
                     </h3>
 
-                    <p className="mt-1 text-sm font-medium text-slate-500">
+                    <p className="mt-1 text-sm font-medium text-ink-soft">
                       Leaving Certificate Examination
                     </p>
 
-                    <p className="mt-2 text-sm text-slate-500">
+                    <p className="mt-2 text-sm text-ink-soft">
                       Dublin, Ireland
                     </p>
                   </div>
 
-                  <p className="shrink-0 text-sm text-slate-500">
+                  <p className="shrink-0 text-sm text-ink-soft">
                     2023 – 2025
                   </p>
                 </div>
@@ -573,33 +581,37 @@ function FullCv() {
   );
 }
 
+const toggleButtonClassName =
+  "rounded-full px-3.5 py-2 text-xs font-semibold transition-colors";
+
 export function Cv() {
   const [view, setView] = useState<"full" | "simple">("full");
 
   return (
-    <>
-      <AmbientBackground />
-      <main className="cv-shell min-h-screen bg-transparent text-[#171a21]">
+    <main className="min-h-screen text-ink">
       {/* Toolbar */}
       <div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-8 print:hidden">
         <Link
           href="/"
-          className="w-fit text-sm font-semibold tracking-[-0.02em] text-[#171a21] transition-colors hover:text-[#5b7cfa]"
+          className="group flex w-fit items-center gap-2.5"
         >
-          Ryan Cullen<span className="text-slate-400">.</span>
+          <DoorMark className="size-8 transition-transform duration-300 group-hover:-rotate-6" />
+          <span className="display text-lg font-semibold tracking-tight">
+            Ryan Cullen<span className="text-tomato">.</span>
+          </span>
         </Link>
 
         <div className="flex flex-wrap items-center gap-3">
           {/* View toggle */}
-          <div className="flex items-center gap-1 border border-[#e5e7eb] bg-white p-1 shadow-sm">
+          <div className="flex items-center gap-1 rounded-full border-[1.5px] border-ink bg-card p-1">
             <button
               type="button"
               onClick={() => setView("full")}
               aria-pressed={view === "full"}
-              className={`rounded-full px-3.5 py-2 text-xs font-medium transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#5b7cfa] ${
+              className={`${toggleButtonClassName} ${
                 view === "full"
-                  ? "bg-[#171a21] text-white shadow-sm hover:bg-[#2b3038]"
-                  : "text-[#6b7280] hover:bg-[#eef3ff] hover:text-[#5b7cfa] hover:shadow-sm"
+                  ? "bg-ink text-paper"
+                  : "text-ink-soft hover:bg-marigold hover:text-night"
               }`}
             >
               Full CV
@@ -609,10 +621,10 @@ export function Cv() {
               type="button"
               onClick={() => setView("simple")}
               aria-pressed={view === "simple"}
-              className={`rounded-full px-3.5 py-2 text-xs font-medium transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#5b7cfa] ${
+              className={`${toggleButtonClassName} ${
                 view === "simple"
-                  ? "bg-[#171a21] text-white shadow-sm hover:bg-[#2b3038]"
-                  : "text-[#6b7280] hover:bg-[#eef3ff] hover:text-[#5b7cfa] hover:shadow-sm"
+                  ? "bg-ink text-paper"
+                  : "text-ink-soft hover:bg-marigold hover:text-night"
               }`}
             >
               Simplified CV
@@ -623,7 +635,7 @@ export function Cv() {
           <button
             type="button"
             onClick={() => window.print()}
-            className="border border-[#e5e7eb] bg-white px-4 py-2.5 text-xs font-medium text-[#171a21] shadow-sm transition-all hover:-translate-y-0.5 hover:border-[#5b7cfa] hover:text-[#5b7cfa] hover:shadow-md"
+            className="rounded-full border-[1.5px] border-ink bg-tomato px-4 py-2.5 text-xs font-semibold text-cream transition-[translate,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-[3px_3px_0_var(--ink)]"
           >
             Print / Save PDF
           </button>
@@ -635,43 +647,6 @@ export function Cv() {
       <div className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 sm:pb-20 print:px-0 print:pb-0">
         {view === "full" ? <FullCv /> : <SimplifiedCv />}
       </div>
-
-      {/* Print CSS */}
-      <style jsx global>{`
-        @media print {
-          @page {
-            size: A4;
-            margin: 12mm;
-          }
-
-          html,
-          body {
-            background: white !important;
-          }
-
-          body {
-            color: #020617 !important;
-          }
-
-          a {
-            color: inherit !important;
-            text-decoration: none !important;
-          }
-
-          .break-inside-avoid {
-            break-inside: avoid;
-          }
-
-          section {
-            break-inside: avoid;
-          }
-
-          button {
-            display: none !important;
-          }
-        }
-      `}</style>
-      </main>
-    </>
+    </main>
   );
 }

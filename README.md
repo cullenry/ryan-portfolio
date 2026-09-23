@@ -2,7 +2,7 @@
 
 Personal portfolio and CV website for Ryan Cullen, a Computer Science & Business student at Trinity College Dublin.
 
-The site introduces Ryan, showcases selected projects and experience, includes education and contact sections, and displays recent GitHub contribution activity.
+The design borrows from the painted Georgian doors of Dublin: a street of doors you can open in the hero, arched "doorway" project cards, and a warm, colourful palette that turns into a lamp-lit street at night. Everything about Ryan (projects, experience, education, skills, GitHub activity, hobbies and contact details) lives in a single About section.
 
 ## Built with
 
@@ -10,15 +10,17 @@ The site introduces Ryan, showcases selected projects and experience, includes e
 - [React](https://react.dev/) 19
 - [TypeScript](https://www.typescriptlang.org/)
 - [Tailwind CSS](https://tailwindcss.com/) 4
-- Next Font
+- Next Font (Fraunces, Bricolage Grotesque and Caveat)
 
 ## Features
 
-- Responsive portfolio landing page
-- About, projects, experience, education, and contact sections
-- Dedicated CV route at `/cv`
+- Responsive single-page portfolio with one condensed About section
+- An interactive street of Dublin doors (house numbers in binary)
+- Day and night themes, with a sun, moon and stars that follow the theme
+- A playable mini piano, a live Dublin clock and one-click email copying
+- Dedicated, printable CV route at `/cv`
 - GitHub contribution activity for [`@cullenry`](https://github.com/cullenry)
-- Accessible external links and keyboard-friendly interactions
+- Accessible external links, keyboard-friendly interactions and reduced-motion support
 - Static production builds suitable for Vercel or other Next.js hosts
 
 ## Getting started

@@ -1,20 +1,21 @@
-import type { Metadata } from "next";
-import { Libre_Baskerville, Montserrat, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Bricolage_Grotesque, Caveat, Fraunces } from "next/font/google";
 import "./globals.css";
 
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  axes: ["SOFT", "WONK", "opsz"],
+});
+
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
   subsets: ["latin"],
 });
 
-const libreBaskerville = Libre_Baskerville({
-  variable: "--font-libre-baskerville",
-  subsets: ["latin"],
-  weight: ["400", "700"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const caveat = Caveat({
+  variable: "--font-caveat",
   subsets: ["latin"],
 });
 
@@ -27,19 +28,27 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f6efe2" },
+    { media: "(prefers-color-scheme: dark)", color: "#13121f" },
+  ],
+};
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${montserrat.variable} ${libreBaskerville.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${fraunces.variable} ${bricolage.variable} ${caveat.variable} h-full antialiased`}
     >
       <head>
         <script
           dangerouslySetInnerHTML={{
             __html: `
               (() => {
-                const savedTheme = localStorage.getItem("portfolio-theme");
+                let savedTheme = null;
+                try { savedTheme = localStorage.getItem("portfolio-theme"); } catch {}
                 const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
                 document.documentElement.dataset.theme = savedTheme || (prefersDark ? "dark" : "light");
               })();
@@ -47,7 +56,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">{children}</body>
     </html>
   );
 }

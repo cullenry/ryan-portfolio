@@ -1,17 +1,17 @@
+import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { About } from "@/components/sections/about";
 import { Hero } from "@/components/sections/hero";
-import { PortfolioSections } from "@/components/sections/portfolio-sections";
-import { AmbientBackground } from "@/components/ui/ambient-background";
 
 export default function Home() {
   return (
     <>
-      <AmbientBackground />
       <SiteHeader />
-      <main>
+      <main className="flex-1">
         <Hero />
-        <PortfolioSections />
+        <About />
       </main>
+      <SiteFooter />
     </>
   );
 }
