@@ -127,8 +127,10 @@ body {
 }
 
 .terminal-input {
+  position: relative;
+  z-index: 1;
+  width: 100%;
   min-width: 0;
-  flex: 1;
   border: 0;
   outline: 0;
   background: transparent;
@@ -137,7 +139,19 @@ body {
   color: #f8fafc;
 }
 
-.terminal-input::placeholder {
+.terminal-input-wrapper {
+  position: relative;
+  min-width: 0;
+  flex: 1;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.75rem;
+  line-height: 1.75rem;
+}
+
+.terminal-input-placeholder {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
   color: #64748b;
 }
 

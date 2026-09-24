@@ -11,6 +11,7 @@ const modes = [
 export function CommandCenter() {
   const [activeMode, setActiveMode] = useState("overview");
   const [typedText, setTypedText] = useState("");
+  const [isTyping, setIsTyping] = useState(true);
   const [command, setCommand] = useState("");
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const activeMessage = modes.find((mode) => mode.label === activeMode)?.value ?? modes[0].value;
@@ -22,6 +23,7 @@ export function CommandCenter() {
       setTypedText(activeMessage.slice(0, index));
       if (index >= activeMessage.length) {
         window.clearInterval(timer);
+        setIsTyping(false);
       }
     }, 18);
 
@@ -30,6 +32,8 @@ export function CommandCenter() {
 
   const selectMode = (mode: string) => {
     setActiveMode(mode);
+    setTypedText("");
+    setIsTyping(true);
     setCommand(`select --mode ${mode}`);
   };
 
@@ -59,7 +63,7 @@ export function CommandCenter() {
           <span className="size-2 rounded-full bg-amber-300" />
           <span className="size-2 rounded-full bg-emerald-300" />
           <span className="ml-2 font-mono text-[10px] tracking-[0.18em] text-slate-400 uppercase">
-            ryan@trinity:~
+            cullenry@tcd:
           </span>
         </div>
         <span className="font-mono text-[10px] text-emerald-300">● online</span>
@@ -69,20 +73,29 @@ export function CommandCenter() {
           <p><span className="text-violet-300">➜</span> whoami</p>
           <p className="text-slate-100">ryan_cullen / builder / student</p>
           <p className="mt-3"><span className="text-violet-300">➜</span> select --mode <span className="text-teal-300">{activeMode}</span></p>
-          <p className="min-h-14 text-slate-400">{typedText}<span className="terminal-cursor" aria-hidden="true">▌</span></p>
+          <p className="min-h-14 text-slate-400">
+            {typedText}
+            {isTyping && <span className="terminal-cursor" aria-hidden="true">▌</span>}
+          </p>
         </div>
         <form className="terminal-input-row" onSubmit={runCommand}>
           <label className="sr-only" htmlFor="terminal-command">Type a terminal command</label>
           <span className="text-violet-300" aria-hidden="true">➜</span>
-          <input
-            autoComplete="off"
-            className="terminal-input"
-            id="terminal-command"
-            onChange={(event) => setCommand(event.target.value)}
-            placeholder="type a command..."
-            spellCheck={false}
-            value={command}
-          />
+          <div className="terminal-input-wrapper">
+            {!command && (
+              <span className="terminal-input-placeholder" aria-hidden="true">
+                type a command...<span className="terminal-cursor">▌</span>
+              </span>
+            )}
+            <input
+              autoComplete="off"
+              className="terminal-input"
+              id="terminal-command"
+              onChange={(event) => setCommand(event.target.value)}
+              spellCheck={false}
+              value={command}
+            />
+          </div>
         </form>
         {commandHistory.length > 0 && (
           <div className="mt-3 font-mono text-xs leading-7 text-slate-300">
