@@ -52,7 +52,6 @@ export const portfolio = {
     { label: "Based", value: "Dublin, Ireland" },
     { label: "Studying", value: "Computer Science & Business" },
     { label: "At", value: "Trinity College Dublin" },
-    { label: "Building", value: "Personal projects" },
   ],
   projects: [
     {
@@ -66,7 +65,7 @@ export const portfolio = {
       ],
     },
     {
-      name: "Trading Bot",
+      name: "Algorithmic Trading Engine",
       stack: "Python · CCXT · Alpaca · Pandas",
       description: "An algorithmic trading project focused on rules, signals, and testing ideas against historical data.",
       details: [

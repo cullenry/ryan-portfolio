@@ -10,71 +10,26 @@ function contributionLabel(date: string, count: number) {
   return `${date}: ${count} ${contributionText}`;
 }
 
-function getCurrentDateLabel() {
-  const now = new Date();
-  const day = String(now.getDate()).padStart(2, "0");
-  const month = now.toLocaleString("en-GB", { month: "long" });
-  const year = now.getFullYear();
-
-  return `${day} ${month} ${year}`;
-}
-
-function toIsoDate(date: Date) {
-  return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()))
-    .toISOString()
-    .slice(0, 10);
-}
-
-function getLast28DaySequence(calendar: { weeks: Array<{ contributionDays: Array<{ color: string; contributionCount: number; date: string; weekday: number }> }> } | null) {
-  if (!calendar) {
-    return [];
+function contributionColor(color: string, count: number, isToday: boolean) {
+  if (count === 0) {
+    return isToday ? "#164e63" : "#16253a";
   }
 
-  const lookup = new Map<string, { color: string; contributionCount: number; date: string; weekday: number }>();
-
-  for (const week of calendar.weeks) {
-    for (const day of week.contributionDays) {
-      lookup.set(day.date, day);
-    }
-  }
-
-  const today = new Date();
-  const startDate = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate() - 27));
-  const days = [] as Array<{ color: string; contributionCount: number; date: string; weekday: number }>;
-
-  for (let offset = 0; offset < 28; offset += 1) {
-    const date = new Date(startDate);
-    date.setUTCDate(startDate.getUTCDate() + offset);
-    const isoDate = toIsoDate(date);
-    const contribution = lookup.get(isoDate) ?? {
-      color: "#ebedf0",
-      contributionCount: 0,
-      date: isoDate,
-      weekday: date.getUTCDay(),
-    };
-
-    days.push(contribution);
-  }
-
-  return days;
+  return color;
 }
 
 export async function GithubActivity({ username }: GithubActivityProps) {
   const calendar = await getGithubActivity(username);
-  const displayDays = getLast28DaySequence(calendar);
 
   return (
     <aside
       aria-labelledby="github-activity-heading"
-      className="github-activity w-full border border-[#e5e7eb] bg-white/78 p-5 shadow-[0_24px_60px_-42px_rgba(23,26,33,0.42)] sm:p-7"
+      className="glass-panel w-full p-5 sm:p-7"
     >
-      <div className="github-activity__header flex items-start justify-between gap-4 border-b border-[#eef0f3] pb-5">
+      <div className="flex items-start justify-between gap-4 border-b border-white/10 pb-5">
         <div>
-          <p className="text-xs font-semibold tracking-[0.14em] text-[#6b7280] uppercase">
-          </p>
-
           <h2
-            className="mt-2 text-lg font-semibold tracking-[-0.03em] text-[#171a21]"
+            className="text-lg font-semibold tracking-[-0.03em] text-white"
             id="github-activity-heading"
           >
             GitHub activity
@@ -82,7 +37,7 @@ export async function GithubActivity({ username }: GithubActivityProps) {
         </div>
 
         <a
-          className="github-activity__link inline-flex items-center gap-1 text-sm font-medium text-[#6b7280] underline decoration-[#d9e4ff] underline-offset-4 transition-colors hover:text-[#5b7cfa] hover:decoration-[#5b7cfa] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#5b7cfa]"
+          className="inline-flex items-center gap-1 text-sm font-medium text-slate-400 underline decoration-violet-400/60 underline-offset-4 transition-colors hover:text-violet-300 hover:decoration-violet-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-violet-300"
           href={`https://github.com/${username}`}
           rel="noreferrer"
           target="_blank"
@@ -99,50 +54,59 @@ export async function GithubActivity({ username }: GithubActivityProps) {
           aria-label={`GitHub contribution activity for ${username}`}
         >
           <div>
-            <div className="grid aspect-[7/4] w-full min-w-0 grid-flow-col grid-rows-4 auto-cols-fr gap-px sm:gap-0.5">
-              {displayDays.map((day) => (
-                <span
-                  aria-label={contributionLabel(
-                    day.date,
-                    day.contributionCount,
-                  )}
-                  className="contribution-day group relative block size-full rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#5b7cfa]"
-                  key={day.date}
-                  role="img"
-                  tabIndex={0}
-                  title={contributionLabel(
-                    day.date,
-                    day.contributionCount,
-                  )}
-                >
-                  <span
-                    aria-hidden="true"
-                    className="contribution-day-fill block size-full rounded-[2px] transition-[filter] duration-150 ease-out group-hover:brightness-90 group-focus:brightness-90 motion-reduce:transition-none"
-                    style={{ backgroundColor: day.color }}
-                  />
+            <div className="grid aspect-[7/5] w-full min-w-0 grid-flow-col grid-rows-5 auto-cols-fr gap-px sm:gap-0.5">
+              {calendar.weeks
+                .flatMap((week) => week.contributionDays)
+                .slice(-35)
+                .map((day) => {
+                  const isToday =
+                    day.date === new Date().toISOString().slice(0, 10) ||
+                    day.date === calendar.weeks.at(-1)?.contributionDays.at(-1)?.date;
 
+                  return (
                   <span
-                    aria-hidden="true"
-                    className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-2 w-max -translate-x-1/2 rounded border border-[#374151] bg-[#171a21] px-2 py-1 text-[11px] font-medium text-white opacity-0 shadow-md transition-opacity duration-150 group-hover:opacity-100 group-focus:opacity-100 motion-reduce:transition-none"
+                    aria-label={contributionLabel(
+                      day.date,
+                      day.contributionCount,
+                    )}
+                    className={`contribution-day group relative block size-full rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-300${isToday ? " contribution-day--today" : ""}`}
+                    key={day.date}
+                    role="img"
+                    tabIndex={0}
+                    title={contributionLabel(
+                      day.date,
+                      day.contributionCount,
+                    )}
                   >
-                    {day.contributionCount}{" "}
-                    {day.contributionCount === 1
-                      ? "contribution"
-                      : "contributions"}
-                  </span>
+                    <span
+                      aria-hidden="true"
+                      className="contribution-day-fill block size-full rounded-[2px] transition-[filter] duration-150 ease-out group-hover:brightness-90 group-focus:brightness-90 motion-reduce:transition-none"
+                      style={{ backgroundColor: contributionColor(day.color, day.contributionCount, isToday) }}
+                    />
 
-                </span>
-              ))}
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-2 w-max -translate-x-1/2 rounded border border-white/10 bg-[#0b1728] px-2 py-1 text-[11px] font-medium text-white opacity-0 shadow-md transition-opacity duration-150 group-hover:opacity-100 group-focus:opacity-100 motion-reduce:transition-none"
+                    >
+                      {day.contributionCount}{" "}
+                      {day.contributionCount === 1
+                        ? "contribution"
+                        : "contributions"}
+                    </span>
+
+                  </span>
+                  );
+                })}
             </div>
           </div>
 
           <div className="mt-5 flex items-center justify-between gap-4 text-xs text-slate-500">
             <span>Recent activity</span>
-            <span>{getCurrentDateLabel()}</span>
+            <span>Last 35 days</span>
           </div>
         </div>
       ) : (
-        <div className="mt-6 border border-dashed border-slate-200 px-4 py-10 text-sm leading-6 text-slate-500">
+        <div className="mt-6 border border-dashed border-white/15 px-4 py-10 text-sm leading-6 text-slate-500">
           Activity data is temporarily unavailable.
         </div>
       )}
