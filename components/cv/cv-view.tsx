@@ -9,7 +9,7 @@ export function CvView({ full, simple }: { full: ReactNode; simple: ReactNode })
   return (
     <>
       <div className="no-print wrap flex flex-wrap items-center justify-between gap-4 py-6">
-        <div aria-label="CV length" className="inline-flex border border-ink p-1" role="group">
+        <div aria-label="CV length" className="inline-flex bg-paper-2 p-1" role="group">
           {(
             [
               ["full", "Full CV"],
@@ -32,7 +32,7 @@ export function CvView({ full, simple }: { full: ReactNode; simple: ReactNode })
         </button>
       </div>
       <div className="wrap pb-16 print:p-0">
-        <div className="mx-auto max-w-[62rem] border border-ink bg-paper p-6 shadow-[8px_8px_0_var(--rule-soft)] sm:p-10 lg:p-14 print:max-w-none print:border-0 print:p-0 print:shadow-none">
+        <div className="mx-auto max-w-[62rem] bg-paper-2/60 p-6 sm:p-10 lg:p-14 print:max-w-none print:border-0 print:p-0 print:shadow-none">
           {view === "full" ? full : simple}
         </div>
       </div>

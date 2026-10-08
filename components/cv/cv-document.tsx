@@ -110,7 +110,7 @@ export function FullCv() {
           </Section>
 
           <Section title="Work experience">
-            <div className="space-y-5 border-l border-rule pl-5 print:space-y-3 print:pl-4">
+            <div className="space-y-5 print:space-y-3">
               {portfolio.experience.map((item) => (
                 <Entry
                   date={item.date}
@@ -140,7 +140,7 @@ export function FullCv() {
           </Section>
         </div>
 
-        <aside className="space-y-8 md:border-l md:border-rule md:pl-8 print:space-y-5 print:border-l print:border-rule print:pl-5">
+        <aside className="space-y-8 md:pl-4 print:space-y-5">
           {Object.entries(portfolio.skills).map(([group, items]) => (
             <Section key={group} title={group}>
               <ul className="space-y-1 font-serif text-[0.98rem] text-ink-2 print:text-[9.5pt]">

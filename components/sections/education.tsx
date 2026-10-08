@@ -29,7 +29,7 @@ export function Education() {
               )}
             </p>
             <p className="mt-1 font-serif text-ink-2">{trinity.award}</p>
-            <p className="mt-6 inline-flex items-center gap-3 border border-ink px-3 py-1.5 font-mono text-xs">
+            <p className="meta mt-6 text-ink-2">
               {trinity.detail}
             </p>
           </article>
@@ -58,10 +58,10 @@ export function Education() {
             <h2 className="font-serif text-3xl font-[450] tracking-[-0.02em] sm:text-4xl">Classifieds</h2>
             <p className="meta">Skills & interests</p>
           </div>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-6 grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
             {Object.entries(portfolio.skills).map(([group, items]) => (
-              <section aria-label={group} className="border border-ink p-4" key={group}>
-                <h3 className="border-b border-ink pb-2 text-center font-sans text-[0.75rem] font-bold tracking-[0.16em] uppercase [font-stretch:80%]">
+              <section aria-label={group} key={group}>
+                <h3 className="border-b border-ink pb-2 font-sans text-[0.75rem] font-bold tracking-[0.16em] uppercase [font-stretch:80%]">
                   {group}
                 </h3>
                 <ul className="mt-3 flex flex-wrap gap-x-1.5 font-serif leading-relaxed text-ink-2">
@@ -74,8 +74,8 @@ export function Education() {
                 </ul>
               </section>
             ))}
-            <section aria-label="Also" className="border border-dashed border-ink-3 p-4">
-              <h3 className="border-b border-ink-3 pb-2 text-center font-sans text-[0.75rem] font-bold tracking-[0.16em] uppercase [font-stretch:80%]">
+            <section aria-label="Also">
+              <h3 className="border-b border-ink pb-2 font-sans text-[0.75rem] font-bold tracking-[0.16em] uppercase [font-stretch:80%]">
                 Also
               </h3>
               <p className="mt-3 font-serif leading-relaxed text-ink-2">

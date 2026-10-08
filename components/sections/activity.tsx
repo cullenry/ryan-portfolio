@@ -8,8 +8,8 @@ export function Activity({ calendar }: { calendar: ContributionCalendar | null }
   return (
     <section aria-labelledby="activity-heading" className="relative z-1 pt-20 outline-none sm:pt-24" id="activity" tabIndex={-1}>
       <div className="wrap">
-        <div className="reveal border-2 border-ink">
-          <header className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-b-2 border-ink bg-paper-2 px-4 py-3 sm:px-6">
+        <div className="reveal">
+          <header className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-b-2 border-ink pb-3">
             <div className="flex items-baseline gap-4">
               <h2 className="font-sans text-2xl font-bold tracking-[-0.01em] uppercase [font-stretch:80%] sm:text-3xl" id="activity-heading">
                 Commit index
@@ -21,7 +21,7 @@ export function Activity({ calendar }: { calendar: ContributionCalendar | null }
             </a>
           </header>
 
-          <div className="p-4 sm:p-6">
+          <div className="pt-5">
             {calendar ? (
               <>
                 <p className="mb-4 font-mono text-xs text-ink-2">

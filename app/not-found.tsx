@@ -13,7 +13,7 @@ export default function NotFound() {
     <>
       <SiteHeader home={false} />
       <main className="wrap relative z-1 grid min-h-[75dvh] place-items-center py-16" id="main">
-        <article className="w-full max-w-2xl border-2 border-ink p-6 shadow-[8px_8px_0_var(--rule-soft)] sm:p-10">
+        <article className="w-full max-w-2xl border-t-[3px] border-ink pt-6">
           <div className="flex items-baseline justify-between border-b border-ink pb-3">
             <p className="kicker text-press">Correction</p>
             <p className="meta">Error 404</p>

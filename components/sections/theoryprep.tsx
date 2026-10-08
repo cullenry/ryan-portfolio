@@ -61,7 +61,7 @@ export function TheoryPrepFeature() {
         <dl className="mt-12 grid grid-cols-2 border-y-2 border-[var(--tp-ink)] lg:grid-cols-4">
           {theoryPrep.stats.map((stat, index) => (
             <div
-              className={`reveal flex flex-col-reverse justify-end gap-2 border-[var(--tp-line)] py-5 pr-3 ${index % 2 === 1 ? "border-l pl-4 sm:pl-5" : ""} ${index >= 2 ? "border-t lg:border-t-0" : ""} ${index === 2 ? "lg:border-l lg:pl-5" : ""}`}
+              className="reveal flex flex-col-reverse justify-end gap-2 py-5 pr-4"
               key={stat.label}
             >
               <dt className="text-sm leading-snug text-[var(--tp-muted)]">{stat.label}</dt>

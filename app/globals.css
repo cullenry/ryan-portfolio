@@ -266,7 +266,6 @@
   .btn-ink {
     background: var(--ink);
     color: var(--on-ink);
-    box-shadow: 3px 3px 0 var(--rule);
   }
 
   .btn-ink:hover {
@@ -279,14 +278,21 @@
     color: var(--on-ink);
   }
 
+  /* Secondary actions: no outline, just type with an underline that firms up on hover. */
   .btn-line {
+    border-color: transparent;
     background: transparent;
     color: var(--ink);
+    padding-inline: 0.35rem;
+    text-decoration: underline;
+    text-decoration-color: var(--rule);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.3em;
   }
 
   .btn-line:hover {
-    background: var(--ink);
-    color: var(--on-ink);
+    color: var(--press);
+    text-decoration-color: currentColor;
   }
 
   .arrow {
@@ -329,7 +335,6 @@
   @media (min-width: 64rem) {
     .lg-col-rules > * + * {
       border-top: 0;
-      border-left: 1px solid var(--rule);
     }
   }
 

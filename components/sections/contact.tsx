@@ -17,7 +17,7 @@ export function Contact() {
               Internships, projects or a question about TheoryPrep. Whatever it is, I&apos;d love to hear from you.
             </p>
           </div>
-          <div className="lg:col-span-8 lg:border-l lg:border-rule lg:pl-10">
+          <div className="lg:col-span-8 lg:pl-10">
             <p className="meta">Write to</p>
             <a
               className="group mt-2 block font-serif text-[clamp(2rem,7.4vw,6rem)] leading-[0.95] font-[300] tracking-[-0.035em] break-words transition-colors hover:text-press"

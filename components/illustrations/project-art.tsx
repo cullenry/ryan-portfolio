@@ -107,7 +107,7 @@ export function ServerArt() {
     [">", "list"],
   ];
   return (
-    <div aria-hidden="true" className="border border-ink bg-ink p-4 font-mono text-[0.72rem] leading-6 text-on-ink sm:text-xs">
+    <div aria-hidden="true" className="bg-ink p-4 font-mono text-[0.72rem] leading-6 text-on-ink sm:text-xs">
       <div className="mb-2 flex items-center justify-between border-b border-on-ink/20 pb-2 text-on-ink/70">
         <span>google cloud · linux vm</span>
         <span className="inline-flex items-center gap-2">

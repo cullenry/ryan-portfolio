@@ -4,11 +4,9 @@ import { portfolio, type Project } from "@/data/portfolio";
 
 function Stack({ items }: { items: string[] }) {
   return (
-    <ul aria-label="Stack" className="flex flex-wrap gap-1.5">
+    <ul aria-label="Stack" className="flex flex-wrap gap-x-3 gap-y-1 font-mono text-[0.75rem] text-ink-3">
       {items.map((item) => (
-        <li className="border border-ink-3 px-2 py-0.5 font-mono text-[0.72rem] text-ink-2" key={item}>
-          {item}
-        </li>
+        <li key={item}>{item}</li>
       ))}
     </ul>
   );
@@ -85,7 +83,7 @@ export function Projects() {
               <Stack items={trading.stack} />
             </div>
           </div>
-          <div className="lg:col-span-7 lg:border-l lg:border-rule lg:pl-12">
+          <div className="lg:col-span-7 lg:pl-12">
             <div className="flex items-baseline justify-between border-b border-ink pb-2 font-mono text-xs">
               <span className="font-semibold">STRATEGY.BACKTEST</span>
               <span className="text-ink-3">daily · indicators</span>
@@ -117,7 +115,7 @@ export function Projects() {
             </div>
           </article>
 
-          <article aria-labelledby="p-server" className="reveal py-10 lg:col-span-7 lg:border-l lg:border-rule lg:py-14 lg:pl-12">
+          <article aria-labelledby="p-server" className="reveal py-10 lg:col-span-7 lg:py-14 lg:pl-12">
             <p className="kicker">{server.kicker}</p>
             <h3 className="mt-3 max-w-[18ch] font-serif text-[clamp(1.9rem,3.4vw,2.9rem)] leading-[1.02] font-[450] tracking-[-0.02em]" id="p-server">
               {server.headline}

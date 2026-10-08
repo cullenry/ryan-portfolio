@@ -73,7 +73,7 @@ export function FrontPage({ printedAt }: { printedAt: Date }) {
               place to practise for the Irish driving theory test, with 805 questions, timed mock exams and an explanation for every answer.
             </p>
             <figure className="mt-7">
-              <div className="border border-ink bg-paper-2 p-1.5 shadow-[6px_6px_0_var(--rule-soft)]">
+              <div className="overflow-hidden rounded-sm bg-paper-2 shadow-[0_18px_40px_-24px_rgb(26_23_18/0.45)]">
                 <Image
                   alt="TheoryPrep homepage: the headline 'Irish Driving Test, Pass First Time' beside a shaggy dog in a green bandana driving a red convertible with an L-plate."
                   className="h-auto w-full"
@@ -100,7 +100,7 @@ export function FrontPage({ printedAt }: { printedAt: Date }) {
             </div>
           </article>
 
-          <aside aria-label="From the editor" className="press-fade press-d4 py-8 lg:col-span-4 lg:border-l lg:border-rule lg:py-10 lg:pl-10">
+          <aside aria-label="From the editor" className="press-fade press-d4 py-8 lg:col-span-4 lg:py-10 lg:pl-6">
             <p className="kicker">From the editor</p>
             <div className="mt-4 space-y-4 font-serif text-[1.075rem] leading-relaxed">
               {portfolio.about.map((paragraph, index) => (
