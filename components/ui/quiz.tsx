@@ -63,7 +63,7 @@ export function Quiz({ questions, ctaHref }: { questions: QuizQuestion[]; ctaHre
             You got {score} out of {questions.length}.
           </h4>
           <p className="mt-2 text-[var(--tp-muted)]">
-            {score === questions.length ? "Clean sheet. You'd sail through." : "The real test has 40 of these, and you need 35."} TheoryPrep has 805 more.
+            {score === questions.length ? "Clean sheet. You'd sail through." : "The real test has 40 of these, and you need 35."} TheoryPrep has 805 real practice questions.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <a

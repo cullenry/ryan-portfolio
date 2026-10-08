@@ -56,7 +56,7 @@ export function Projects() {
   const [, trading, netflix, server, site] = portfolio.projects;
 
   return (
-    <section aria-labelledby="projects-heading" className="defer-render relative z-1 pt-20 outline-none sm:pt-28" id="projects" tabIndex={-1}>
+    <section aria-labelledby="projects-heading" className="relative z-1 pt-20 outline-none sm:pt-28" id="projects" tabIndex={-1}>
       <div className="wrap">
         <header className="reveal flex flex-wrap items-end justify-between gap-4">
           <div>

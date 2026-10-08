@@ -47,7 +47,7 @@ export function FrontPage({ printedAt }: { printedAt: Date }) {
             className="group flex items-start gap-3 py-4 lg:col-span-3 lg:pl-6"
             href={portfolio.status.href}
           >
-            <span aria-hidden="true" className="live-dot mt-1.5" />
+            <span aria-hidden="true" className="live-dot live-dot-pulse mt-1.5" />
             <span>
               <span className="kicker block text-press">{portfolio.status.label}</span>
               <span className="mt-0.5 block font-serif text-2xl leading-tight group-hover:underline group-hover:decoration-1 group-hover:underline-offset-4">
@@ -73,10 +73,7 @@ export function FrontPage({ printedAt }: { printedAt: Date }) {
               place to practise for the Irish driving theory test, with 805 questions, timed mock exams and an explanation for every answer.
             </p>
             <figure className="mt-7">
-              <a
-                className="group block border border-ink bg-paper-2 p-1.5 shadow-[6px_6px_0_var(--rule-soft)] transition-shadow hover:shadow-[8px_8px_0_var(--rule)]"
-                href="#theoryprep"
-              >
+              <div className="border border-ink bg-paper-2 p-1.5 shadow-[6px_6px_0_var(--rule-soft)]">
                 <Image
                   alt="TheoryPrep homepage: the headline 'Irish Driving Test, Pass First Time' beside a shaggy dog in a green bandana driving a red convertible with an L-plate."
                   className="h-auto w-full"
@@ -86,8 +83,7 @@ export function FrontPage({ printedAt }: { printedAt: Date }) {
                   src="/projects/theoryprep-home.webp"
                   width={1440}
                 />
-                <span className="sr-only">Read the TheoryPrep feature</span>
-              </a>
+              </div>
               <figcaption className="meta mt-3 flex justify-between gap-4">
                 <span>theoryprep.ie, as it looks today.</span>
                 <span className="hidden sm:inline">Screenshot · Oct 2026</span>

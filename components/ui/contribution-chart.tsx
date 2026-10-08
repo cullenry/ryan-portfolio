@@ -143,7 +143,8 @@ export function ContributionChart({ calendar, username }: { calendar: Contributi
                   key={day.date}
                   onPointerEnter={() => setSelected({ week: weekIndex, weekday: day.weekday })}
                   rx={2}
-                  stroke={isSelected ? "var(--ink)" : isLatest ? "var(--press)" : "none"}
+                  stroke={isSelected || isLatest ? "var(--ink)" : "none"}
+                  strokeDasharray={isLatest && !isSelected ? "2 1.5" : undefined}
                   strokeWidth={isSelected || isLatest ? 1.5 : 0}
                   style={{ fill: `var(--heat-${day.level})` }}
                   width={CELL}
@@ -166,7 +167,7 @@ export function ContributionChart({ calendar, username }: { calendar: Contributi
           ))}
           <span>More</span>
           <span className="ml-3 inline-flex items-center gap-1.5">
-            <span aria-hidden="true" className="size-3 rounded-[2px] border-[1.5px] border-press" /> Latest day
+            <span aria-hidden="true" className="size-3 rounded-[2px] border-[1.5px] border-dashed border-ink" /> Latest day
           </span>
         </div>
       </figcaption>

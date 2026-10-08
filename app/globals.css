@@ -19,6 +19,9 @@
   --market: #1d6b47;
   --highlight: #f2d64b;
   --on-ink: #f4efe4;
+  /* Solid bands (ticker, footer): ink in the day edition, a soft charcoal at night. */
+  --band: #1a1712;
+  --on-band: #f4efe4;
 
   /* Contribution ramp: one hue, light to dark (dataviz: sequential). */
   --heat-0: #e3dccb;
@@ -47,6 +50,8 @@
   --market: #62c793;
   --highlight: #6b5a12;
   --on-ink: #12110e;
+  --band: #24211b;
+  --on-band: #ece5d4;
 
   /* Dark ramp is its own selection, anchored on the dark surface. */
   --heat-0: #24211b;
@@ -69,6 +74,8 @@
   --color-market: var(--market);
   --color-highlight: var(--highlight);
   --color-on-ink: var(--on-ink);
+  --color-band: var(--band);
+  --color-on-band: var(--on-band);
 
   --font-serif: var(--font-newsreader), "Iowan Old Style", Georgia, serif;
   --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
@@ -128,9 +135,11 @@
     color: var(--ink);
   }
 
+  /* Two-tone ring: the paper halo keeps it visible on ink bands and coloured panels. */
   :focus-visible {
     outline: 2px solid var(--press);
-    outline-offset: 3px;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px var(--paper);
     border-radius: 1px;
   }
 
@@ -336,19 +345,13 @@
     background: var(--press);
   }
 
-  .live-dot::after {
+  .live-dot-pulse::after {
     content: "";
     position: absolute;
     inset: 0;
     border-radius: inherit;
     background: inherit;
     animation: live-ping 2.4s var(--ease-out) infinite;
-  }
-
-  /* Skip rendering work for sections until they approach the viewport. */
-  .defer-render {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 1400px;
   }
 
   /* Stat strips and other tabular figures. */
@@ -483,7 +486,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .ticker-track,
-  .live-dot::after {
+  .live-dot-pulse::after {
     animation: none !important;
   }
 

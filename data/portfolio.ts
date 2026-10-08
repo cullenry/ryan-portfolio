@@ -65,6 +65,8 @@ export type QuizQuestion = {
 const theoryPrepUrl = "https://theoryprep.ie";
 
 export const portfolio = {
+  /** Bump when content changes. Drives the masthead date, footer and sitemap. */
+  updatedAt: "2026-10-08",
   name: "Ryan Cullen",
   firstName: "Ryan",
   lastName: "Cullen",
@@ -302,11 +304,10 @@ export const theoryPrep = {
   url: theoryPrepUrl,
   displayUrl: "theoryprep.ie",
   stats: [
-    { value: "805", label: "practice questions" },
-    { value: "11", label: "topic areas" },
-    { value: "40", label: "questions in a full mock" },
-    { value: "45", label: "minutes on the clock" },
-    { value: "35", label: "correct to pass" },
+    { value: "805", label: "practice questions, each explained" },
+    { value: "11", label: "topic areas to drill" },
+    { value: "3", label: "timed mock formats: 40, 20 and 10 questions" },
+    { value: "€0", label: "to start, no account needed" },
   ],
   topics: [
     { name: "General road knowledge", count: 186 },

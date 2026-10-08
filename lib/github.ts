@@ -156,30 +156,3 @@ export async function getGithubActivity(username: string): Promise<ContributionC
     return null;
   }
 }
-
-/** Contribution totals per week, oldest first. */
-export function weeklyTotals(calendar: ContributionCalendar) {
-  return calendar.weeks.map((week) => ({
-    start: week.contributionDays[0]?.date ?? "",
-    total: week.contributionDays.reduce((sum, day) => sum + day.contributionCount, 0),
-  }));
-}
-
-export function activitySummary(calendar: ContributionCalendar) {
-  const days = calendar.weeks.flatMap((week) => week.contributionDays);
-  const busiest = days.reduce<ContributionDay | null>(
-    (best, day) => (!best || day.contributionCount > best.contributionCount ? day : best),
-    null,
-  );
-
-  const weeks = weeklyTotals(calendar);
-  const last4 = weeks.slice(-4).reduce((sum, week) => sum + week.total, 0);
-  const prior4 = weeks.slice(-8, -4).reduce((sum, week) => sum + week.total, 0);
-
-  return {
-    total: calendar.totalContributions,
-    busiest,
-    last4,
-    prior4,
-  };
-}

@@ -141,7 +141,7 @@ export function CommandIndex() {
     }
   };
 
-  let lastGroup: Command["group"] | null = null;
+  const groups = [...new Set(results.map((command) => command.group))];
 
   return (
     <>
@@ -186,39 +186,36 @@ export function CommandIndex() {
             value={query}
           />
         </div>
-        <ul aria-label="Results" className="max-h-[50vh] overflow-y-auto py-2" id={`${listId}-list`} role="listbox">
-          {results.map((command, index) => {
-            const heading = command.group !== lastGroup ? command.group : null;
-            lastGroup = command.group;
-            const selected = index === activeIndex;
-
-            return (
-              <li
-                aria-selected={selected}
-                className={`mx-2 flex cursor-pointer items-baseline justify-between gap-4 px-3 py-2.5 ${selected ? "bg-ink text-on-ink" : "text-ink"}`}
-                id={`${listId}-${command.id}`}
-                key={command.id}
-                onClick={() => runCommand(command)}
-                onMouseMove={() => setActive(index)}
-                role="option"
-              >
-                <span className="flex items-baseline gap-3">
-                  {heading && (
-                    <span className={`w-16 shrink-0 font-sans text-[0.65rem] font-semibold tracking-[0.12em] uppercase ${selected ? "text-on-ink/80" : "text-ink-3"}`}>
-                      {heading}
-                    </span>
-                  )}
-                  {!heading && <span aria-hidden="true" className="w-16 shrink-0" />}
-                  <span className="font-serif text-lg leading-tight">{command.label}</span>
-                </span>
-                {command.hint && (
-                  <span className={`font-mono text-xs ${selected ? "text-on-ink/80" : "text-ink-3"}`}>{command.hint}</span>
-                )}
-              </li>
-            );
-          })}
-          {results.length === 0 && <li className="px-5 py-6 font-serif text-ink-2 italic">Nothing filed under “{query}”.</li>}
-        </ul>
+        <div aria-label="Results" className="max-h-[50vh] overflow-y-auto py-2" id={`${listId}-list`} role="listbox">
+          {groups.map((group) => (
+            <div aria-labelledby={`${listId}-g-${group}`} key={group} role="group">
+              <p className="px-5 pt-2 pb-1 font-sans text-[0.65rem] font-semibold tracking-[0.12em] text-ink-3 uppercase" id={`${listId}-g-${group}`} role="presentation">
+                {group}
+              </p>
+              {results.map((command, index) => {
+                if (command.group !== group) return null;
+                const selected = index === activeIndex;
+                return (
+                  <div
+                    aria-selected={selected}
+                    className={`mx-2 flex cursor-pointer items-baseline justify-between gap-4 px-3 py-2.5 ${selected ? "bg-ink text-on-ink" : "text-ink"}`}
+                    id={`${listId}-${command.id}`}
+                    key={command.id}
+                    onClick={() => runCommand(command)}
+                    onMouseMove={() => setActive(index)}
+                    role="option"
+                  >
+                    <span className="font-serif text-lg leading-tight">{command.label}</span>
+                    {command.hint && (
+                      <span className={`font-mono text-xs ${selected ? "text-on-ink/80" : "text-ink-3"}`}>{command.hint}</span>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          ))}
+        </div>
+        {results.length === 0 && <p className="px-5 py-6 font-serif text-ink-2 italic">Nothing filed under “{query}”.</p>}
       </dialog>
       <p aria-live="polite" className="sr-only">
         {notice}

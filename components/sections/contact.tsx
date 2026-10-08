@@ -4,7 +4,7 @@ import { portfolio } from "@/data/portfolio";
 
 export function Contact() {
   return (
-    <section aria-labelledby="contact-heading" className="defer-render relative z-1 pt-20 outline-none sm:pt-28" id="contact" tabIndex={-1}>
+    <section aria-labelledby="contact-heading" className="relative z-1 pt-20 outline-none sm:pt-28" id="contact" tabIndex={-1}>
       <div className="wrap">
         <div className="reveal-rule rule-double" />
         <div className="reveal grid gap-10 pt-8 lg:grid-cols-12">
@@ -43,7 +43,7 @@ export function Contact() {
                 CV <span aria-hidden="true" className="arrow arrow-right">→</span>
               </Link>
             </div>
-            <p className="meta mt-6">Based in {portfolio.location}. Happy to chat in English or as Gaeilge.</p>
+            <p className="meta mt-6">Based in {portfolio.location}.</p>
           </div>
         </div>
       </div>

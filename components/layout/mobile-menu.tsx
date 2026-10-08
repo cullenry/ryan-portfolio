@@ -7,6 +7,7 @@ import type { NavigationItem } from "@/data/portfolio";
 export function MobileMenu({ items }: { items: NavigationItem[] }) {
   const [open, setOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
   const panelId = useId();
 
   useEffect(() => {
@@ -17,12 +18,26 @@ export function MobileMenu({ items }: { items: NavigationItem[] }) {
         buttonRef.current?.focus();
       }
     };
+    const onPointerDown = (event: PointerEvent) => {
+      if (!rootRef.current?.contains(event.target as Node)) setOpen(false);
+    };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    window.addEventListener("pointerdown", onPointerDown);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("pointerdown", onPointerDown);
+    };
   }, [open]);
 
   return (
-    <div className="lg:hidden">
+    <div
+      className="lg:hidden"
+      onBlur={(event) => {
+        // Only when focus moves somewhere else; Safari doesn't focus tapped links.
+        if (event.relatedTarget && !event.currentTarget.contains(event.relatedTarget as Node)) setOpen(false);
+      }}
+      ref={rootRef}
+    >
       <button
         aria-controls={panelId}
         aria-expanded={open}

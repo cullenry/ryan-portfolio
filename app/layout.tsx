@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Instrument_Sans, JetBrains_Mono } from "next/font/google";
 import localFont from "next/font/local";
+import { CommandIndex } from "@/components/ui/command-index";
 import { portfolio } from "@/data/portfolio";
 import { siteDescription, siteTitle, siteUrl } from "@/lib/site";
 import "./globals.css";
@@ -97,6 +98,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           Skip to content
         </a>
         {children}
+        <CommandIndex />
       </body>
     </html>
   );

@@ -35,20 +35,25 @@ Paper and ink first. Colour is rare and always means something.
 | `--ink-2` | `#4a443a` | `#c2b9a5` | secondary text (8.4 / 9.7 : 1) |
 | `--ink-3` | `#655e50` | `#9a917e` | captions, metadata (5.6 / 6.0 : 1) |
 | `--rule` | `#a89e88` | `#5a5345` | hairline rules (decorative only) |
-| `--press` | `#b3261e` | `#f07a66` | **live / now / attention**: "Now building", focus ring, live dot |
+| `--press` | `#b3261e` | `#f07a66` | **now / attention**: the pulsing "Now building" dot, focus ring, the lead-story flag |
 | `--market` | `#1d6b47` | `#62c793` | **growth / up**: ticker gains, the contribution ramp, TheoryPrep links |
 | `--highlight` | `#f2d64b` | `#6b5a12` | text selection, like a reporter's highlighter |
+| `--band` | `#1a1712` | `#24211b` | solid bands (ticker, footer); soft charcoal at night so they don't glare |
 
 Every text pairing passes WCAG AA, and most pass AAA. Rules never carry meaning, and
-control borders use `--ink-3`, which clears 3:1. The TheoryPrep supplement borrows that
+control borders use `--ink-3`, which clears 3:1. The focus ring is two-tone, a `--press`
+outline over a `--paper` halo, so it stays visible on ink bands and coloured panels. The TheoryPrep supplement borrows that
 product's own tokens (`#16704c` green, `#c8102e` red, cream `#f1ebe0`) inside a scoped
 container, so it reads as a different publication folded into this one.
 
 ## Type
 
-- **Newsreader** (variable `opsz` 6–72, `wght` 200–800, roman and italic) is the
-  display *and* reading serif, and optical sizing does the work. The masthead name is
-  set at `opsz 72`, weight 360, with tight tracking. "Cullen" is set in italic, the way a
+- **Newsreader** is the display *and* reading serif. It is self-hosted and subset with
+  fontTools: the roman keeps `opsz` 12–72 and `wght` 300–600, and the italic is a display cut
+  pinned at `opsz` 48. Optical size is pinned to two values (16 for text, 60 for headings)
+  rather than set automatically, because every distinct variation is a separate font
+  instance to build and shape, and auto sizing made the first layout slow. The masthead name is
+  set at weight 400 with tight tracking. "Cullen" is set in italic, the way a
   paper sets its nameplate. Body copy uses `opsz` 14–18 at weight 400.
 - **Instrument Sans** (variable `wdth` 75–100) is used for kickers, navigation, buttons and
   figures. It is condensed (`wdth 75–85`) for small caps-style kickers and stat values.
@@ -70,9 +75,9 @@ grid. Each project has its own composition, chosen to suit what it is.
 
 Motion explains something or it doesn't ship.
 
-- **Press run (load).** The rules draw left to right, the nameplate inks in with a
-  weight and opacity settle, and the ticker starts last. All of it finishes in under
-  900ms, using CSS only.
+- **Press run (load).** The rules draw left to right and the nameplate rolls onto the
+  page with a `clip-path` reveal. That is paint-only, so it never re-runs layout on
+  15rem type. All of it finishes in about a second, using CSS only.
 - **Scroll.** Sections rise 12px and fade in with CSS scroll-driven animations
   (`animation-timeline: view()`) behind `@supports`, so browsers without support show
   everything immediately.

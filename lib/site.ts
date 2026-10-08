@@ -20,9 +20,9 @@ export const siteTitle = `${portfolio.name} · ${portfolio.education.degree}, Tr
 export const siteDescription =
   "Ryan Cullen is a Computer Science & Business student at Trinity College Dublin who builds software where code meets markets. Builder of TheoryPrep, free Irish driving theory test practice.";
 
-/** Build stamp shown in the footer colophon. Frozen at build time for static pages. */
+/** Edition stamp: the content date from portfolio.ts, plus the deployed commit on Vercel. */
 export const build = {
-  date: new Date(),
+  date: new Date(`${portfolio.updatedAt}T12:00:00Z`),
   commit: process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7) ?? null,
 };
 

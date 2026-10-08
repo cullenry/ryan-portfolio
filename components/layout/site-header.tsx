@@ -43,7 +43,7 @@ export function SiteHeader({ home = true }: { home?: boolean }) {
         )}
 
         <div className="flex items-center gap-3 sm:gap-5">
-          <IndexButton className="hidden sm:inline-flex" />
+          <IndexButton />
           <ThemeToggle />
           {home ? (
             <MobileMenu items={items} />

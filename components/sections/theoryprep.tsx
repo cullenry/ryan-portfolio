@@ -58,14 +58,14 @@ export function TheoryPrepFeature() {
         </div>
 
         {/* Stat strip */}
-        <dl className="mt-12 grid grid-cols-2 border-y-2 border-[var(--tp-ink)] sm:grid-cols-3 lg:grid-cols-5">
+        <dl className="mt-12 grid grid-cols-2 border-y-2 border-[var(--tp-ink)] lg:grid-cols-4">
           {theoryPrep.stats.map((stat, index) => (
             <div
-              className={`reveal border-[var(--tp-line)] px-1 py-5 sm:px-5 ${index > 0 ? "lg:border-l" : ""} ${index % 2 === 1 ? "border-l sm:border-l-0" : ""} ${index % 3 !== 0 ? "sm:border-l lg:border-l" : ""} ${index >= 2 ? "border-t sm:border-t-0" : ""} ${index >= 3 ? "sm:border-t lg:border-t-0" : ""} ${index === 4 ? "col-span-2 sm:col-span-1" : ""}`}
+              className={`reveal flex flex-col-reverse justify-end gap-2 border-[var(--tp-line)] py-5 pr-3 ${index % 2 === 1 ? "border-l pl-4 sm:pl-5" : ""} ${index >= 2 ? "border-t lg:border-t-0" : ""} ${index === 2 ? "lg:border-l lg:pl-5" : ""}`}
               key={stat.label}
             >
-              <dt className="text-sm text-[var(--tp-muted)]">{stat.label}</dt>
-              <dd className="mt-1 text-[clamp(2.6rem,6vw,4rem)] leading-none font-bold tracking-[-0.04em] text-[var(--tp-green)] [font-stretch:80%]">
+              <dt className="text-sm leading-snug text-[var(--tp-muted)]">{stat.label}</dt>
+              <dd className="text-[clamp(2.8rem,6.5vw,4.4rem)] leading-none font-bold tracking-[-0.04em] text-[var(--tp-green)] [font-stretch:80%]">
                 {stat.value}
               </dd>
             </div>
@@ -151,8 +151,8 @@ export function TheoryPrepFeature() {
               </thead>
               <tbody>
                 {theoryPrep.topics.map((topic) => (
-                  <tr className="grid grid-cols-[minmax(0,11rem)_1fr] items-center gap-3 py-[3px] sm:grid-cols-[16rem_1fr]" key={topic.name}>
-                    <th className="truncate text-left font-normal" scope="row" title={topic.name}>
+                  <tr className="grid grid-cols-1 gap-x-3 gap-y-0.5 py-1 sm:grid-cols-[16rem_1fr] sm:items-center sm:py-[3px]" key={topic.name}>
+                    <th className="text-left leading-snug font-normal" scope="row">
                       {topic.name}
                     </th>
                     <td className="flex items-center gap-2">
@@ -176,7 +176,7 @@ export function TheoryPrepFeature() {
             Free to start, with no account needed. Go and pass the thing.
           </p>
           <a
-            className="inline-flex min-h-13 shrink-0 items-center gap-3 rounded-lg bg-[var(--tp-red)] px-6 text-lg font-bold text-white shadow-[0_4px_0_var(--tp-red-dark)] transition-transform hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-none dark:text-[#2a0a10]"
+            className="inline-flex min-h-13 shrink-0 items-center gap-3 rounded-lg bg-[var(--tp-card)] px-6 text-lg font-bold text-[var(--tp-ink)] shadow-[0_4px_0_rgb(0_0_0/0.25)] transition-transform hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-none"
             href={theoryPrep.url}
             rel="noreferrer"
             target="_blank"

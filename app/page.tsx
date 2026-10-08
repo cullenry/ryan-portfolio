@@ -7,33 +7,25 @@ import { ExperienceLedger } from "@/components/sections/experience";
 import { FrontPage } from "@/components/sections/front-page";
 import { Projects } from "@/components/sections/projects";
 import { TheoryPrepFeature } from "@/components/sections/theoryprep";
-import { CommandIndex } from "@/components/ui/command-index";
 import { JsonLd } from "@/components/ui/json-ld";
 import { TestDrive } from "@/components/ui/test-drive";
 import { Ticker } from "@/components/ui/ticker";
 import { portfolio, theoryPrep } from "@/data/portfolio";
-import { activitySummary, getGithubActivity } from "@/lib/github";
+import { getGithubActivity } from "@/lib/github";
 import { build, siteDescription, siteUrl } from "@/lib/site";
 
-type Quote = { symbol: string; value: string; note: string; trend?: "up" | "flat" };
+type Quote = { symbol: string; value: string; note: string };
 
 export default async function Home() {
   const calendar = await getGithubActivity(portfolio.githubUsername);
-  const summary = calendar ? activitySummary(calendar) : null;
 
   const quotes: Quote[] = [
-    { symbol: "TPREP", value: "805", note: "practice questions", trend: "up" },
+    { symbol: "TPREP", value: "805", note: "practice questions" },
     { symbol: "MOCK", value: "40 Q · 45 MIN", note: "35 to pass" },
-    ...(summary
-      ? [
-          { symbol: "GH.12M", value: summary.total.toLocaleString("en-IE"), note: "contributions", trend: "up" as const },
-          { symbol: "GH.4W", value: String(summary.last4), note: "last four weeks", trend: summary.last4 >= summary.prior4 ? ("up" as const) : ("flat" as const) },
-        ]
-      : []),
     { symbol: "TCD", value: "YR 2", note: "Computer Science & Business" },
     { symbol: "LC", value: "602", note: "points" },
+    { symbol: "NOW", value: "BUILDING", note: "theoryprep.ie" },
     { symbol: "DUB", value: "53.34°N", note: "6.26°W" },
-    { symbol: "SHIP", value: "theoryprep.ie", note: "live", trend: "up" },
   ];
 
   const jsonLd = {
@@ -48,7 +40,7 @@ export default async function Home() {
         jobTitle: portfolio.role,
         description: siteDescription,
         address: { "@type": "PostalAddress", addressLocality: "Dublin", addressCountry: "IE" },
-        alumniOf: portfolio.educationHistory.map((entry) => ({ "@type": "EducationalOrganization", name: entry.institution })),
+        alumniOf: { "@type": "EducationalOrganization", name: "Institute of Education" },
         affiliation: { "@type": "CollegeOrUniversity", name: "Trinity College Dublin", url: "https://www.tcd.ie" },
         knowsLanguage: portfolio.spokenLanguages,
         knowsAbout: ["Software development", "Algorithmic trading", "Data visualisation", "Next.js", "Python", "Java"],
@@ -82,14 +74,9 @@ export default async function Home() {
       <JsonLd data={jsonLd} />
       <Ticker label="Ticker">
         {quotes.map((quote) => (
-          <li className="flex items-center gap-2 border-r border-on-ink/20 px-4 py-2 font-mono text-[0.72rem] whitespace-nowrap" key={quote.symbol}>
+          <li className="flex items-center gap-2 border-r border-on-band/20 px-4 py-2 font-mono text-[0.72rem] whitespace-nowrap" key={quote.symbol}>
             <span className="font-semibold">{quote.symbol}</span>
             <span>{quote.value}</span>
-            {quote.trend === "up" && (
-              <span aria-label="rising" className="text-[var(--heat-2)]">
-                ▲
-              </span>
-            )}
             <span className="opacity-75">{quote.note}</span>
           </li>
         ))}
@@ -105,7 +92,6 @@ export default async function Home() {
         <Contact />
       </main>
       <SiteFooter />
-      <CommandIndex />
       <TestDrive />
     </>
   );

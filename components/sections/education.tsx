@@ -4,12 +4,12 @@ export function Education() {
   const [trinity, school] = portfolio.educationHistory;
 
   return (
-    <section aria-labelledby="education-heading" className="defer-render relative z-1 pt-20 outline-none sm:pt-28" id="education" tabIndex={-1}>
+    <section aria-labelledby="education-heading" className="relative z-1 pt-20 outline-none sm:pt-28" id="education" tabIndex={-1}>
       <div className="wrap">
         <header className="reveal">
           <p className="kicker">Education · p.07</p>
-          <h2 className="mt-2 font-serif text-[clamp(2.6rem,7vw,5.5rem)] leading-[0.9] font-[400] tracking-[-0.035em]" id="education-heading">
-            Where systems meet <span className="italic">strategy</span>
+          <h2 className="mt-2 max-w-[16ch] font-sans text-[clamp(2.4rem,6.5vw,5rem)] leading-[0.88] font-bold tracking-[-0.03em] uppercase [font-stretch:80%]" id="education-heading">
+            Where systems meet strategy
           </h2>
         </header>
         <div className="reveal-rule rule-double mt-6" />
@@ -30,7 +30,6 @@ export function Education() {
             </p>
             <p className="mt-1 font-serif text-ink-2">{trinity.award}</p>
             <p className="mt-6 inline-flex items-center gap-3 border border-ink px-3 py-1.5 font-mono text-xs">
-              <span aria-hidden="true" className="live-dot" />
               {trinity.detail}
             </p>
           </article>

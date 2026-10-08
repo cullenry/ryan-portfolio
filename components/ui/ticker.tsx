@@ -10,8 +10,8 @@ export function Ticker({ children, label }: { children: ReactNode; label: string
   const [paused, setPaused] = useState(false);
 
   return (
-    <div className="flex items-stretch border-b border-ink bg-ink text-on-ink">
-      <p className="hidden shrink-0 items-center gap-2 border-r border-on-ink/25 px-3 font-mono text-[0.7rem] font-semibold tracking-wider uppercase sm:flex">
+    <div className="flex items-stretch border-b border-ink bg-band text-on-band">
+      <p className="hidden shrink-0 items-center gap-2 border-r border-on-band/25 px-3 font-mono text-[0.7rem] font-semibold tracking-wider uppercase sm:flex">
         <span aria-hidden="true" className="live-dot" />
         Live
       </p>
@@ -26,7 +26,7 @@ export function Ticker({ children, label }: { children: ReactNode; label: string
       <button
         aria-label={paused ? "Play the ticker" : "Pause the ticker"}
         aria-pressed={paused}
-        className="no-print grid w-11 shrink-0 place-items-center border-l border-on-ink/25 transition-colors hover:bg-press hover:text-paper motion-reduce:hidden"
+        className="no-print grid w-11 shrink-0 place-items-center border-l border-on-band/25 transition-colors hover:bg-press hover:text-paper motion-reduce:hidden"
         onClick={() => setPaused((value) => !value)}
         type="button"
       >
