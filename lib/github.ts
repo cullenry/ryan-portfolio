@@ -1,21 +1,33 @@
 export type ContributionDay = {
-  color: string;
   contributionCount: number;
   date: string;
   weekday: number;
+  /** 0 (none) to 4 (busiest), comparable across both data sources. */
+  level: number;
 };
 
 export type ContributionCalendar = {
+  totalContributions: number;
   weeks: Array<{
     contributionDays: ContributionDay[];
   }>;
+};
+
+type GraphqlDay = {
+  contributionCount: number;
+  contributionLevel: "NONE" | "FIRST_QUARTILE" | "SECOND_QUARTILE" | "THIRD_QUARTILE" | "FOURTH_QUARTILE";
+  date: string;
+  weekday: number;
 };
 
 type GithubResponse = {
   data?: {
     user?: {
       contributionsCollection: {
-        contributionCalendar: ContributionCalendar;
+        contributionCalendar: {
+          totalContributions: number;
+          weeks: Array<{ contributionDays: GraphqlDay[] }>;
+        };
       };
     } | null;
   };
@@ -32,10 +44,11 @@ const contributionQuery = `
     user(login: $login) {
       contributionsCollection {
         contributionCalendar {
+          totalContributions
           weeks {
             contributionDays {
-              color
               contributionCount
+              contributionLevel
               date
               weekday
             }
@@ -46,28 +59,42 @@ const contributionQuery = `
   }
 `;
 
-const githubContributionColors = [
-  "#ebedf0",
-  "#9be9a8",
-  "#40c463",
-  "#30a14e",
-  "#216e39",
-];
+const graphqlLevels: Record<GraphqlDay["contributionLevel"], number> = {
+  NONE: 0,
+  FIRST_QUARTILE: 1,
+  SECOND_QUARTILE: 2,
+  THIRD_QUARTILE: 3,
+  FOURTH_QUARTILE: 4,
+};
 
-function createContributionCalendarFromPublicData(contributions: PublicContributionDay[]) {
-  const contributionDays = contributions.map((day) => ({
-    color: githubContributionColors[Math.min(day.level, githubContributionColors.length - 1)] ?? githubContributionColors[0],
-    contributionCount: day.count,
-    date: day.date,
-    weekday: new Date(`${day.date}T00:00:00Z`).getUTCDay(),
-  }));
+/** Six hours: fresh enough for a portfolio, and keeps the page statically rendered. */
+const revalidate = 21_600;
+
+function calendarFromPublicData(contributions: PublicContributionDay[]): ContributionCalendar {
+  const weeks: ContributionCalendar["weeks"] = [];
+
+  for (const day of contributions) {
+    const weekday = new Date(`${day.date}T00:00:00Z`).getUTCDay();
+    if (weekday === 0 || weeks.length === 0) weeks.push({ contributionDays: [] });
+    weeks.at(-1)!.contributionDays.push({
+      contributionCount: day.count,
+      date: day.date,
+      weekday,
+      level: Math.max(0, Math.min(4, day.level)),
+    });
+  }
 
   return {
-    weeks: [{ contributionDays }],
-  } satisfies ContributionCalendar;
+    totalContributions: contributions.reduce((total, day) => total + day.count, 0),
+    weeks,
+  };
 }
 
-export async function getGithubActivity(username: string) {
+/**
+ * The last year of contributions. Uses the GitHub GraphQL API when GITHUB_TOKEN is
+ * set, falls back to a public mirror, and returns null if both are unavailable.
+ */
+export async function getGithubActivity(username: string): Promise<ContributionCalendar | null> {
   const login = username.trim();
 
   if (!login) {
@@ -85,19 +112,26 @@ export async function getGithubActivity(username: string) {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          query: contributionQuery,
-          variables: { login },
-        }),
-        next: { revalidate: 21600 },
+        body: JSON.stringify({ query: contributionQuery, variables: { login } }),
+        next: { revalidate },
       });
 
       if (response.ok) {
         const result = (await response.json()) as GithubResponse;
-        const calendar = result.data?.user?.contributionsCollection.contributionCalendar ?? null;
+        const calendar = result.data?.user?.contributionsCollection.contributionCalendar;
 
         if (calendar) {
-          return calendar;
+          return {
+            totalContributions: calendar.totalContributions,
+            weeks: calendar.weeks.map((week) => ({
+              contributionDays: week.contributionDays.map((day) => ({
+                contributionCount: day.contributionCount,
+                date: day.date,
+                weekday: day.weekday,
+                level: graphqlLevels[day.contributionLevel] ?? 0,
+              })),
+            })),
+          };
         }
       }
     }
@@ -105,11 +139,8 @@ export async function getGithubActivity(username: string) {
     const fallbackResponse = await fetch(
       `https://github-contributions-api.jogruber.de/v4/${encodeURIComponent(login)}?y=last`,
       {
-        headers: {
-          Accept: "application/json",
-          "User-Agent": "Ryan-Cullen-Portfolio",
-        },
-        cache: "no-store",
+        headers: { Accept: "application/json", "User-Agent": "Ryan-Cullen-Portfolio" },
+        next: { revalidate },
       },
     );
 
@@ -117,18 +148,38 @@ export async function getGithubActivity(username: string) {
       return null;
     }
 
-    const publicData = (await fallbackResponse.json()) as {
-      contributions?: PublicContributionDay[];
-    };
-
+    const publicData = (await fallbackResponse.json()) as { contributions?: PublicContributionDay[] };
     const contributions = publicData.contributions ?? [];
 
-    if (!contributions.length) {
-      return null;
-    }
-
-    return createContributionCalendarFromPublicData(contributions.slice(-35));
+    return contributions.length ? calendarFromPublicData(contributions) : null;
   } catch {
     return null;
   }
+}
+
+/** Contribution totals per week, oldest first. */
+export function weeklyTotals(calendar: ContributionCalendar) {
+  return calendar.weeks.map((week) => ({
+    start: week.contributionDays[0]?.date ?? "",
+    total: week.contributionDays.reduce((sum, day) => sum + day.contributionCount, 0),
+  }));
+}
+
+export function activitySummary(calendar: ContributionCalendar) {
+  const days = calendar.weeks.flatMap((week) => week.contributionDays);
+  const busiest = days.reduce<ContributionDay | null>(
+    (best, day) => (!best || day.contributionCount > best.contributionCount ? day : best),
+    null,
+  );
+
+  const weeks = weeklyTotals(calendar);
+  const last4 = weeks.slice(-4).reduce((sum, week) => sum + week.total, 0);
+  const prior4 = weeks.slice(-8, -4).reduce((sum, week) => sum + week.total, 0);
+
+  return {
+    total: calendar.totalContributions,
+    busiest,
+    last4,
+    prior4,
+  };
 }
