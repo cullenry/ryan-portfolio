@@ -39,6 +39,7 @@ Paper and ink first. Colour is rare and always means something.
 | `--market` | `#1d6b47` | `#62c793` | **growth / up**: ticker gains, the contribution ramp, TheoryPrep links |
 | `--highlight` | `#f2d64b` | `#6b5a12` | text selection, like a reporter's highlighter |
 | `--band` | `#1a1712` | `#24211b` | solid bands (ticker, footer); soft charcoal at night so they don't glare |
+| `--tint-green` / `-red` / `-yellow` | `#dcebdf` / `#f6dcd3` / `#f4e08a` | `#16271d` / `#2e1a16` / `#2f2810` | back-page colour: the current job and the Leaving Cert score (green), the classifieds categories, and the yellow letters band. Every ink step stays AA on them. |
 
 Every text pairing passes WCAG AA, and most pass AAA. Rules never carry meaning, and
 control borders use `--ink-3`, which clears 3:1. The focus ring is two-tone, a `--press`
