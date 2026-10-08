@@ -4,7 +4,7 @@ import { build, formatShortDate } from "@/lib/site";
 
 export function SiteFooter() {
   return (
-    <footer className="no-print relative z-1 bg-band text-on-band">
+    <footer className="no-print relative z-1 mt-24 bg-band text-on-band">
       <div className="wrap py-12 sm:py-16">
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-6">

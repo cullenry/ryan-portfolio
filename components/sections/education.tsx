@@ -1,12 +1,5 @@
 import { portfolio } from "@/data/portfolio";
 
-// Classified categories get their own colour, like the sections of a real classifieds page.
-const classifiedStyles = [
-  { head: "bg-market", body: "bg-tint-green" },
-  { head: "bg-press", body: "bg-tint-red" },
-  { head: "bg-ink", body: "bg-paper-2" },
-];
-
 export function Education() {
   const [trinity, school] = portfolio.educationHistory;
 
@@ -28,7 +21,7 @@ export function Education() {
             <p className="mt-3 font-sans text-lg font-semibold">
               {trinity.url ? (
                 <a className="link" href={trinity.url} rel="noreferrer" target="_blank">
-                  <span className="highlighter">{trinity.course}</span>
+                  {trinity.course}
                   <span className="sr-only"> course page (opens in a new tab)</span>
                 </a>
               ) : (
@@ -36,19 +29,19 @@ export function Education() {
               )}
             </p>
             <p className="mt-1 font-serif text-ink-2">{trinity.award}</p>
-            <p className="mt-6 inline-flex items-center gap-3 border border-market bg-tint-green px-3 py-1.5 font-mono text-xs">
+            <p className="mt-6 inline-flex items-center gap-3 border border-ink px-3 py-1.5 font-mono text-xs">
               {trinity.detail}
             </p>
           </article>
-          <article className="reveal my-6 flex flex-col justify-between gap-6 bg-tint-green p-6 lg:col-span-5 lg:my-10 lg:ml-10 lg:p-8">
+          <article className="reveal flex flex-col justify-between gap-6 py-8 lg:col-span-5 lg:py-10 lg:pl-10">
             <div>
               <p className="meta">{school.date}</p>
               <h3 className="mt-3 font-serif text-[clamp(1.6rem,2.8vw,2.3rem)] leading-tight font-[450]">{school.institution}</h3>
               <p className="mt-1 font-sans font-semibold text-ink-2">{school.course}</p>
             </div>
             {school.figure && (
-              <p className="flex items-end gap-3 border-t border-market pt-4">
-                <span className="figure text-[clamp(4.5rem,11vw,7.5rem)] text-market">{school.figure.value}</span>
+              <p className="flex items-end gap-3 border-t border-ink pt-4">
+                <span className="figure text-[clamp(4.5rem,11vw,7.5rem)]">{school.figure.value}</span>
                 <span className="pb-2 font-sans text-sm text-ink-2">
                   {school.figure.label}
                   <br />
@@ -66,12 +59,12 @@ export function Education() {
             <p className="meta">Skills & interests</p>
           </div>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {Object.entries(portfolio.skills).map(([group, items], index) => (
-              <section aria-label={group} className={`border border-ink ${classifiedStyles[index % classifiedStyles.length].body}`} key={group}>
-                <h3 className={`px-4 py-2 text-center font-sans text-[0.75rem] font-bold tracking-[0.16em] text-paper uppercase [font-stretch:80%] ${classifiedStyles[index % classifiedStyles.length].head}`}>
+            {Object.entries(portfolio.skills).map(([group, items]) => (
+              <section aria-label={group} className="border border-ink p-4" key={group}>
+                <h3 className="border-b border-ink pb-2 text-center font-sans text-[0.75rem] font-bold tracking-[0.16em] uppercase [font-stretch:80%]">
                   {group}
                 </h3>
-                <ul className="flex flex-wrap gap-x-1.5 p-4 font-serif leading-relaxed text-ink-2">
+                <ul className="mt-3 flex flex-wrap gap-x-1.5 font-serif leading-relaxed text-ink-2">
                   {items.map((item, index) => (
                     <li className="whitespace-nowrap" key={item}>
                       {item}
@@ -81,11 +74,11 @@ export function Education() {
                 </ul>
               </section>
             ))}
-            <section aria-label="Also" className="border border-dashed border-ink bg-tint-yellow">
-              <h3 className="border-b border-dashed border-ink px-4 py-2 text-center font-sans text-[0.75rem] font-bold tracking-[0.16em] uppercase [font-stretch:80%]">
+            <section aria-label="Also" className="border border-dashed border-ink-3 p-4">
+              <h3 className="border-b border-ink-3 pb-2 text-center font-sans text-[0.75rem] font-bold tracking-[0.16em] uppercase [font-stretch:80%]">
                 Also
               </h3>
-              <p className="p-4 font-serif leading-relaxed text-ink-2">
+              <p className="mt-3 font-serif leading-relaxed text-ink-2">
                 Speaks {portfolio.spokenLanguages.join(" and ")}. Off the clock: {portfolio.interests.join(", ").toLowerCase()}.
               </p>
             </section>

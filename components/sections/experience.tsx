@@ -17,7 +17,7 @@ export function ExperienceLedger() {
         </header>
 
         <div className="reveal mt-6 border-t-[3px] border-ink">
-          <div aria-hidden="true" className="hidden grid-cols-12 gap-6 border-b border-ink bg-paper-2 px-3 py-2 font-mono text-[0.7rem] tracking-wider text-ink-2 uppercase md:grid">
+          <div aria-hidden="true" className="hidden grid-cols-12 gap-6 border-b border-ink py-2 font-mono text-[0.7rem] tracking-wider text-ink-3 uppercase md:grid">
             <span className="col-span-3">Period</span>
             <span className="col-span-4">Employer · Position</span>
             <span className="col-span-5">Entries</span>
@@ -25,16 +25,16 @@ export function ExperienceLedger() {
           <ol>
             {portfolio.experience.map((item, index) => (
               <li
-                className={`group grid gap-x-6 gap-y-3 border-b border-rule border-l-4 px-3 py-6 transition-colors md:grid-cols-12 ${item.current ? "border-l-market bg-tint-green" : "border-l-transparent hover:border-l-highlight hover:bg-tint-yellow/40"}`}
+                className="group grid gap-x-6 gap-y-3 border-b border-rule py-6 transition-colors hover:bg-paper-2/60 md:grid-cols-12"
                 key={`${item.company}-${item.role}`}
               >
                 <p className="flex items-baseline gap-3 font-mono text-sm md:col-span-3 md:block">
-                  <span className="font-semibold text-market">{String(portfolio.experience.length - index).padStart(2, "0")}</span>
+                  <span className="text-ink-3">{String(portfolio.experience.length - index).padStart(2, "0")}</span>
                   <span className="md:mt-1 md:block">
                     {item.date ?? <span className="text-ink-2">{item.context}</span>}
                   </span>
                   {item.current && (
-                    <span className="inline-flex items-center bg-market px-1.5 py-0.5 font-sans text-[0.7rem] font-semibold tracking-[0.1em] text-paper uppercase md:mt-2 md:w-fit">
+                    <span className="inline-flex items-center border border-ink px-1.5 py-0.5 font-sans text-[0.7rem] font-semibold tracking-[0.1em] uppercase md:mt-2 md:w-fit">
                       Current
                     </span>
                   )}
@@ -60,7 +60,7 @@ export function ExperienceLedger() {
           <div className="rule-double" />
           <p className="mt-3 flex justify-between gap-4 font-mono text-xs text-ink-3">
             <span>Balance carried forward</span>
-            <span className="text-market">Still learning ▲</span>
+            <span>Still learning ▲</span>
           </p>
         </div>
       </div>
