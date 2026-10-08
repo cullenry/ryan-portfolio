@@ -41,7 +41,7 @@ export function Education() {
             </div>
             {school.figure && (
               <p className="flex items-end gap-3 border-t border-ink pt-4">
-                <span className="figure text-[clamp(4.5rem,11vw,7.5rem)]">{school.figure.value}</span>
+                <span className="figure text-[clamp(4.5rem,11vw,7.5rem)] text-market">{school.figure.value}</span>
                 <span className="pb-2 font-sans text-sm text-ink-2">
                   {school.figure.label}
                   <br />

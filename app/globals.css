@@ -22,6 +22,9 @@
   /* Solid bands (ticker, footer): ink in the day edition, a soft charcoal at night. */
   --band: #1a1712;
   --on-band: #f4efe4;
+  /* One spot colour, used once at full strength: the letters page. */
+  --spot: #1d5c3d;
+  --on-spot: #f4efe4;
 
   /* Contribution ramp: one hue, light to dark (dataviz: sequential). */
   --heat-0: #e3dccb;
@@ -52,6 +55,8 @@
   --on-ink: #12110e;
   --band: #24211b;
   --on-band: #ece5d4;
+  --spot: #173826;
+  --on-spot: #ece5d4;
 
   /* Dark ramp is its own selection, anchored on the dark surface. */
   --heat-0: #24211b;
@@ -75,6 +80,8 @@
   --color-highlight: var(--highlight);
   --color-on-ink: var(--on-ink);
   --color-band: var(--band);
+  --color-spot: var(--spot);
+  --color-on-spot: var(--on-spot);
   --color-on-band: var(--on-band);
 
   --font-serif: var(--font-newsreader), "Iowan Old Style", Georgia, serif;
@@ -505,6 +512,22 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* --------------------------------------------------------- spot colour */
+
+/* Remaps the ink tokens so anything inside reads as printed on the spot colour. */
+.on-spot {
+  --paper: var(--spot);
+  --paper-2: color-mix(in oklab, var(--spot) 85%, var(--on-spot));
+  --ink: var(--on-spot);
+  --ink-2: color-mix(in oklab, var(--on-spot) 82%, var(--spot));
+  --ink-3: color-mix(in oklab, var(--on-spot) 70%, var(--spot));
+  --rule: color-mix(in oklab, var(--on-spot) 35%, var(--spot));
+  --on-ink: var(--spot);
+  --press: #f2d64b;
+  background: var(--spot);
+  color: var(--ink);
 }
 
 /* ------------------------------------------------- TheoryPrep supplement */

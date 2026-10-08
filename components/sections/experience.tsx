@@ -34,7 +34,7 @@ export function ExperienceLedger() {
                     {item.date ?? <span className="text-ink-2">{item.context}</span>}
                   </span>
                   {item.current && (
-                    <span className="inline-flex items-center border border-ink px-1.5 py-0.5 font-sans text-[0.7rem] font-semibold tracking-[0.1em] uppercase md:mt-2 md:w-fit">
+                    <span className="inline-flex items-center font-sans text-[0.7rem] font-semibold tracking-[0.14em] text-market uppercase md:mt-2">
                       Current
                     </span>
                   )}
