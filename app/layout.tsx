@@ -1,53 +1,103 @@
-import type { Metadata } from "next";
-import { Libre_Baskerville, Montserrat, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Instrument_Sans, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
+import { portfolio } from "@/data/portfolio";
+import { siteDescription, siteTitle, siteUrl } from "@/lib/site";
 import "./globals.css";
 
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
-  subsets: ["latin"],
+// Newsreader, instanced and subset with fontTools to keep the bytes down: the roman
+// keeps its optical-size axis (12–72) and weights 300–600; the italic is a display
+// cut pinned at opsz 48. Latin plus Irish fadas and typographic punctuation. OFL.
+const newsreader = localFont({
+  variable: "--font-newsreader",
+  src: [
+    { path: "./fonts/newsreader-roman.woff2", weight: "300 600", style: "normal" },
+    { path: "./fonts/newsreader-italic.woff2", weight: "300 500", style: "italic" },
+  ],
+  display: "swap",
+  adjustFontFallback: "Times New Roman",
 });
 
-const libreBaskerville = Libre_Baskerville({
-  variable: "--font-libre-baskerville",
+const instrumentSans = Instrument_Sans({
+  variable: "--font-instrument",
   subsets: ["latin"],
-  weight: ["400", "700"],
+  axes: ["wdth"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains",
   subsets: ["latin"],
+  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
-  title: "Ryan Cullen | Computer Science & Business",
-  description:
-    "Portfolio of Ryan Cullen, a Computer Science & Business student at Trinity College Dublin.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: siteTitle,
+    template: `%s · ${portfolio.name}`,
+  },
+  description: siteDescription,
+  applicationName: `${portfolio.name}`,
+  authors: [{ name: portfolio.name, url: siteUrl }],
+  creator: portfolio.name,
+  keywords: [
+    "Ryan Cullen",
+    "Trinity College Dublin",
+    "Computer Science and Business",
+    "TheoryPrep",
+    "Irish driving theory test",
+    "software developer Dublin",
+  ],
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "profile",
+    firstName: portfolio.firstName,
+    lastName: portfolio.lastName,
+    username: portfolio.githubUsername,
+    locale: "en_IE",
+    url: "/",
+    siteName: portfolio.name,
+    title: siteTitle,
+    description: siteDescription,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: siteDescription,
+  },
   verification: {
     google: "PixwOgN0g50RGNFqMnkZzznRkTzyYZMeVPdH5Tj3EMU",
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f4efe4" },
+    { media: "(prefers-color-scheme: dark)", color: "#12110e" },
+  ],
+};
+
+// Runs before first paint so the saved edition never flashes the wrong theme.
+const themeScript = `(()=>{try{var t=localStorage.getItem("portfolio-theme");if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="light"}})()`;
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="en"
+      lang="en-IE"
       suppressHydrationWarning
-      className={`${montserrat.variable} ${libreBaskerville.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${newsreader.variable} ${instrumentSans.variable} ${jetbrainsMono.variable}`}
     >
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (() => {
-                const savedTheme = localStorage.getItem("portfolio-theme");
-                const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-                document.documentElement.dataset.theme = savedTheme || (prefersDark ? "dark" : "light");
-              })();
-            `,
-          }}
-        />
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-dvh">
+        <a className="skip-link" href="#main">
+          Skip to content
+        </a>
+        {children}
+      </body>
     </html>
   );
 }

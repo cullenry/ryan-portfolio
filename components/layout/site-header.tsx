@@ -1,32 +1,57 @@
-import { portfolio } from "@/data/portfolio";
+import Link from "next/link";
+import { MobileMenu } from "@/components/layout/mobile-menu";
+import { IndexButton } from "@/components/ui/command-index";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { portfolio } from "@/data/portfolio";
 
-export function SiteHeader() {
+export function SiteHeader({ home = true }: { home?: boolean }) {
+  const items = portfolio.navigation.filter((item) => item.href !== "#top");
+
   return (
-    <header className="sticky top-0 z-30 border-b border-white/10 bg-[#07111f]/75 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-7xl flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8">
-        <a
-          className="w-fit text-sm font-semibold tracking-[-0.02em] text-white transition-colors hover:text-violet-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-violet-300"
-          href="#top"
+    <header className="no-print sticky top-0 z-40 border-b border-ink bg-paper/92 backdrop-blur-md supports-[backdrop-filter]:bg-paper/85">
+      <div className="wrap flex min-h-14 items-center justify-between gap-4">
+        <Link
+          className="group flex items-center gap-2.5"
+          href={home ? "#top" : "/"}
         >
-          Ryan Cullen<span className="text-teal-300">.</span>
-        </a>
-        <div className="flex min-w-0 items-center gap-4">
-          <nav aria-label="Primary navigation" className="max-w-full min-w-0 overflow-x-auto">
-            <ul className="flex w-max items-center gap-4 text-[10px] font-semibold tracking-[0.14em] text-slate-400 uppercase sm:gap-6">
-            {portfolio.navigation.map((item) => (
-              <li key={item.href}>
-                <a
-                  className="transition-colors hover:text-teal-300 focus-visible:text-teal-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal-300"
-                  href={item.href}
-                >
-                  {item.label}
-                </a>
+          <span
+            aria-hidden="true"
+            className="grid size-8 place-items-center bg-ink font-serif text-[0.95rem] leading-none text-on-ink italic transition-colors group-hover:bg-press"
+          >
+            RC
+          </span>
+          <span className="sr-only font-serif text-lg leading-none italic sm:not-sr-only">The Cullen Ledger</span>
+        </Link>
+
+        {home && (
+          <nav aria-label="Primary" className="hidden lg:block">
+            <ul className="flex items-center gap-1 font-sans text-[0.8rem] font-semibold [font-stretch:80%]">
+              {items.map((item) => (
+                <li key={item.href}>
+                  <a className="inline-flex min-h-11 items-center px-2.5 text-ink-2 transition-colors hover:text-press" href={item.href}>
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+              <li>
+                <Link className="ml-1 inline-flex min-h-11 items-center px-2.5 text-ink transition-colors hover:text-press" href="/cv">
+                  CV
+                </Link>
               </li>
-            ))}
             </ul>
           </nav>
+        )}
+
+        <div className="flex items-center gap-3 sm:gap-5">
+          <IndexButton className="hidden sm:inline-flex" />
           <ThemeToggle />
+          {home ? (
+            <MobileMenu items={items} />
+          ) : (
+            <Link className="inline-flex min-h-11 items-center font-sans text-[0.8rem] font-semibold hover:text-press" href="/">
+              ← Front page
+            </Link>
+          )}
         </div>
       </div>
     </header>
