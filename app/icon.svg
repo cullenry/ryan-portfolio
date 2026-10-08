@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <style>
+    .bg{fill:#1a1712}.fg{fill:#f4efe4}.dot{fill:#e0523f}
+    @media (prefers-color-scheme: dark){.bg{fill:#ece5d4}.fg{fill:#12110e}.dot{fill:#b3261e}}
+  </style>
+  <rect class="bg" width="64" height="64" rx="10"/>
+  <text class="fg" x="31" y="45" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="36" text-anchor="middle" letter-spacing="-2">RC</text>
+  <rect class="fg" x="10" y="51" width="44" height="2.5"/>
+  <circle class="dot" cx="52" cy="13" r="4.5"/>
+</svg>

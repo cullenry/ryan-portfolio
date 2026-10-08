@@ -1,13 +1,10 @@
 import type { MetadataRoute } from "next";
-
-const siteUrl = "https://ryan-portfolio-three-beryl.vercel.app";
+import { siteUrl } from "@/lib/site";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: {
-      userAgent: "*",
-      allow: ["/", "/cv"],
-    },
+    rules: { userAgent: "*", allow: "/" },
     sitemap: `${siteUrl}/sitemap.xml`,
+    host: siteUrl,
   };
 }
