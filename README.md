@@ -11,7 +11,7 @@ See [DESIGN.md](./DESIGN.md) for the concept, tokens, type system and motion pri
 - [Next.js](https://nextjs.org/) 16 (App Router, Turbopack) and [React](https://react.dev/) 19
 - TypeScript
 - [Tailwind CSS](https://tailwindcss.com/) 4, with design tokens defined as CSS variables and mapped through `@theme`
-- `next/font`: Newsreader (self-hosted, subset with fontTools, OFL), Instrument Sans and JetBrains Mono
+- `next/font`: Fraunces with its Soft axis (self-hosted, subset with fontTools, OFL), Instrument Sans and JetBrains Mono
 - `next/og` for generated social images
 - No animation or UI libraries: the motion uses CSS (including scroll-driven animations) and the View Transitions API
 
@@ -83,4 +83,4 @@ Edit [`data/portfolio.ts`](./data/portfolio.ts) to change any content. The homep
 
 ## Licence
 
-Personal portfolio. Unless stated otherwise, the content and design are not licensed for reuse. Newsreader is used under the SIL Open Font License (see `app/fonts/OFL.txt`).
+Personal portfolio. Unless stated otherwise, the content and design are not licensed for reuse. Fraunces is used under the SIL Open Font License (see `app/fonts/OFL.txt`).

@@ -47,7 +47,7 @@ export function SiteFooter() {
             <div className="col-span-2 md:col-span-1">
               <p className="mb-3 text-[0.7rem] font-semibold tracking-[0.14em] text-on-band/70 uppercase [font-stretch:80%]">Colophon</p>
               <p className="leading-relaxed text-on-band/80">
-                Set in Newsreader, Instrument Sans and JetBrains Mono. Built with Next.js. Press <kbd className="font-mono">/</kbd> for the index. Some keys do more than you&apos;d expect.
+                Set in Fraunces Soft, Instrument Sans and JetBrains Mono. Built with Next.js. Press <kbd className="font-mono">/</kbd> for the index. Some keys do more than you&apos;d expect.
               </p>
             </div>
           </div>

@@ -6,7 +6,7 @@ export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 
 export default async function AppleIcon() {
-  const italic = await readFile(join(process.cwd(), "assets/fonts/Newsreader72-LightItalic.ttf"));
+  const italic = await readFile(join(process.cwd(), "assets/fonts/FrauncesSoft72-LightItalic.ttf"));
 
   return new ImageResponse(
     (
@@ -20,7 +20,7 @@ export default async function AppleIcon() {
           justifyContent: "center",
           background: "#1a1712",
           color: "#f4efe4",
-          fontFamily: "Newsreader",
+          fontFamily: "Fraunces",
           fontStyle: "italic",
           fontSize: 104,
           letterSpacing: -5,
@@ -31,6 +31,6 @@ export default async function AppleIcon() {
         <div style={{ display: "flex", width: 112, height: 6, background: "#f4efe4", marginTop: 6 }} />
       </div>
     ),
-    { ...size, fonts: [{ name: "Newsreader", data: italic, style: "italic", weight: 300 }] },
+    { ...size, fonts: [{ name: "Fraunces", data: italic, style: "italic", weight: 300 }] },
   );
 }

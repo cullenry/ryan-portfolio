@@ -6,14 +6,14 @@ import { portfolio } from "@/data/portfolio";
 import { siteDescription, siteTitle, siteUrl } from "@/lib/site";
 import "./globals.css";
 
-// Newsreader, instanced and subset with fontTools to keep the bytes down: the roman
-// keeps its optical-size axis (12–72) and weights 300–600; the italic is a display
-// cut pinned at opsz 48. Latin plus Irish fadas and typographic punctuation. OFL.
-const newsreader = localFont({
-  variable: "--font-newsreader",
+// Fraunces with its SOFT axis at 100 (rounded, less sharp terminals), instanced and
+// subset with fontTools: the roman keeps opsz 12–72 and weights 300–600; the italic
+// is a display cut pinned at opsz 48. Latin plus Irish fadas and punctuation. OFL.
+const fraunces = localFont({
+  variable: "--font-fraunces",
   src: [
-    { path: "./fonts/newsreader-roman.woff2", weight: "300 600", style: "normal" },
-    { path: "./fonts/newsreader-italic.woff2", weight: "300 500", style: "italic" },
+    { path: "./fonts/fraunces-soft-roman.woff2", weight: "300 600", style: "normal" },
+    { path: "./fonts/fraunces-soft-italic.woff2", weight: "300 500", style: "italic" },
   ],
   display: "swap",
   adjustFontFallback: "Times New Roman",
@@ -88,7 +88,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en-IE"
       suppressHydrationWarning
-      className={`${newsreader.variable} ${instrumentSans.variable} ${jetbrainsMono.variable}`}
+      className={`${fraunces.variable} ${instrumentSans.variable} ${jetbrainsMono.variable}`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />

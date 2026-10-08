@@ -84,7 +84,7 @@
   --color-on-spot: var(--on-spot);
   --color-on-band: var(--on-band);
 
-  --font-serif: var(--font-newsreader), "Iowan Old Style", Georgia, serif;
+  --font-serif: var(--font-fraunces), "Iowan Old Style", Georgia, serif;
   --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", Consolas, monospace;
 

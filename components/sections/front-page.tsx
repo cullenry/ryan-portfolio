@@ -22,7 +22,7 @@ export function FrontPage({ printedAt }: { printedAt: Date }) {
         <div className="press-rule rule" />
 
         <h1
-          className="press-ink press-d1 -ml-[0.04em] pt-[0.16em] pb-[0.05em] font-serif text-[clamp(4.6rem,17.2vw,15.5rem)] leading-[0.82] font-[400] tracking-[-0.045em]"
+          className="press-ink press-d1 -ml-[0.04em] pt-[0.16em] pb-[0.24em] sm:pb-[0.3em] font-serif text-[clamp(4.6rem,17.2vw,15.5rem)] leading-[0.82] font-[400] tracking-[-0.045em]"
           id="nameplate"
         >
           <span className="block sm:inline">Ryan</span> <span className="block font-[300] italic sm:inline">Cullen</span>

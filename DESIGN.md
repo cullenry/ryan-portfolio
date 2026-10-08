@@ -48,13 +48,13 @@ container, so it reads as a different publication folded into this one.
 
 ## Type
 
-- **Newsreader** is the display *and* reading serif. It is self-hosted and subset with
-  fontTools: the roman keeps `opsz` 12–72 and `wght` 300–600, and the italic is a display cut
-  pinned at `opsz` 48. Optical size is pinned to two values (16 for text, 60 for headings)
-  rather than set automatically, because every distinct variation is a separate font
-  instance to build and shape, and auto sizing made the first layout slow. The masthead name is
-  set at weight 400 with tight tracking. "Cullen" is set in italic, the way a
-  paper sets its nameplate. Body copy uses `opsz` 14–18 at weight 400.
+- **Fraunces**, with its `SOFT` axis at 100, is the display *and* reading serif. It has
+  rounded, softer terminals than a sharp news face, so it reads warm rather than severe.
+  It is self-hosted and subset with fontTools: the roman keeps `opsz` 12–72 and `wght`
+  300–600, and the italic is a display cut pinned at `opsz` 48. Optical size is pinned to
+  two values (16 for text, 60 for headings), because every distinct variation is a
+  separate font instance to build and shape. "Cullen" in the nameplate is italic, the way a
+  paper sets its nameplate.
 - **Instrument Sans** (variable `wdth` 75–100) is used for kickers, navigation, buttons and
   figures. It is condensed (`wdth 75–85`) for small caps-style kickers and stat values.
   Following the dataviz rule, numbers are set in sans, not serif.
